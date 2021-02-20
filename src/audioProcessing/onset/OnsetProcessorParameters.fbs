@@ -1,0 +1,13 @@
+include "OnsetMethod.fbs";
+
+namespace ImpresarioSerialization;
+
+table OnsetProcessorParameters {
+    method:OnsetMethod;
+    threshold:float32;
+    minioi_ms:int32;
+    silence:float32;
+    adaptive_whitening:byte;
+}
+
+root_type OnsetProcessorParameters;

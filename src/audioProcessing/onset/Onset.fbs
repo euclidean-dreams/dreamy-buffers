@@ -1,0 +1,10 @@
+include "OnsetMethod.fbs";
+
+namespace ImpresarioSerialization;
+
+table Onset {
+    timestamp:uint64;
+    method:OnsetMethod;
+}
+
+root_type Onset;
