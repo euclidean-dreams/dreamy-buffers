@@ -1,4 +1,4 @@
-include "OnsetMethod.fbs";
+include "audioProcessing/onset/OnsetMethod.fbs";
 
 namespace ImpresarioSerialization;
 
