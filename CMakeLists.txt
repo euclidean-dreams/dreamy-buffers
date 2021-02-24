@@ -7,3 +7,4 @@ add_subdirectory(lib/flatbuffers)
 
 add_library(impresario-serialization INTERFACE)
 target_include_directories(impresario-serialization INTERFACE compiled/cpp)
+target_link_libraries(impresario-serialization INTERFACE flatbuffers)
