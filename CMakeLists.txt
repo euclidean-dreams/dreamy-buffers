@@ -3,5 +3,7 @@ project(impresario-serialization VERSION 0.1)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+add_subdirectory(lib/flatbuffers)
+
 add_library(impresario-serialization INTERFACE)
 target_include_directories(impresario-serialization INTERFACE compiled/cpp)
