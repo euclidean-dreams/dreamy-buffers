@@ -1,4 +1,4 @@
-[submodule "lib/flatbuffers"]
-	path = lib/flatbuffers
-	url = git@github.com:impresario-systems/flatbuffers.git
+[submodule "lib/cmake-utils"]
+	path = lib/cmake-utils
+	url = git@github.com:impresario-systems/cmake-utils.git
 	branch = master
