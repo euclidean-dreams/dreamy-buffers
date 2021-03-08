@@ -1,9 +1,0 @@
-include "audioProcessing/onset/OnsetAggregate.fbs";
-
-namespace ImpresarioSerialization;
-
-table AudioAttributes {
-    onsetAggregate:OnsetAggregate;
-}
-
-root_type AudioAttributes;

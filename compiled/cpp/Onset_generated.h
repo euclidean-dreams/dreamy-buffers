@@ -11,10 +11,8 @@
 namespace ImpresarioSerialization {
 
 struct Onset;
-struct OnsetBuilder;
 
 struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef OnsetBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TIMESTAMP = 4,
     VT_METHOD = 6
@@ -22,8 +20,8 @@ struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint64_t timestamp() const {
     return GetField<uint64_t>(VT_TIMESTAMP, 0);
   }
-  ImpresarioSerialization::OnsetMethod method() const {
-    return static_cast<ImpresarioSerialization::OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
+  OnsetMethod method() const {
+    return static_cast<OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -34,13 +32,12 @@ struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct OnsetBuilder {
-  typedef Onset Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_timestamp(uint64_t timestamp) {
     fbb_.AddElement<uint64_t>(Onset::VT_TIMESTAMP, timestamp, 0);
   }
-  void add_method(ImpresarioSerialization::OnsetMethod method) {
+  void add_method(OnsetMethod method) {
     fbb_.AddElement<int8_t>(Onset::VT_METHOD, static_cast<int8_t>(method), 0);
   }
   explicit OnsetBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -58,7 +55,7 @@ struct OnsetBuilder {
 inline flatbuffers::Offset<Onset> CreateOnset(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint64_t timestamp = 0,
-    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::energy) {
+    OnsetMethod method = OnsetMethod::energy) {
   OnsetBuilder builder_(_fbb);
   builder_.add_timestamp(timestamp);
   builder_.add_method(method);
