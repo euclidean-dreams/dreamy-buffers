@@ -1,0 +1,9 @@
+include "performance/RGBColor.fbs";
+
+namespace ImpresarioSerialization;
+
+table LedPayload {
+    leds:[RGBColor];
+}
+
+root_type LedPayload;
