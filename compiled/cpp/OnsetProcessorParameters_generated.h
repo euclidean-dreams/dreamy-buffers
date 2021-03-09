@@ -11,10 +11,8 @@
 namespace ImpresarioSerialization {
 
 struct OnsetProcessorParameters;
-struct OnsetProcessorParametersBuilder;
 
 struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef OnsetProcessorParametersBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_METHOD = 4,
     VT_THRESHOLD = 6,
@@ -22,8 +20,8 @@ struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
     VT_SILENCE = 10,
     VT_ADAPTIVE_WHITENING = 12
   };
-  ImpresarioSerialization::OnsetMethod method() const {
-    return static_cast<ImpresarioSerialization::OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
+  OnsetMethod method() const {
+    return static_cast<OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
   }
   float threshold() const {
     return GetField<float>(VT_THRESHOLD, 0.0f);
@@ -49,10 +47,9 @@ struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
 };
 
 struct OnsetProcessorParametersBuilder {
-  typedef OnsetProcessorParameters Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_method(ImpresarioSerialization::OnsetMethod method) {
+  void add_method(OnsetMethod method) {
     fbb_.AddElement<int8_t>(OnsetProcessorParameters::VT_METHOD, static_cast<int8_t>(method), 0);
   }
   void add_threshold(float threshold) {
@@ -81,7 +78,7 @@ struct OnsetProcessorParametersBuilder {
 
 inline flatbuffers::Offset<OnsetProcessorParameters> CreateOnsetProcessorParameters(
     flatbuffers::FlatBufferBuilder &_fbb,
-    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::energy,
+    OnsetMethod method = OnsetMethod::energy,
     float threshold = 0.0f,
     int32_t minioi_ms = 0,
     float silence = 0.0f,
