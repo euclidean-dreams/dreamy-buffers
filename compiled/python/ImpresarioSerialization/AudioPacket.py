@@ -3,6 +3,8 @@
 # namespace: ImpresarioSerialization
 
 import flatbuffers
+from flatbuffers.compat import import_numpy
+np = import_numpy()
 
 class AudioPacket(object):
     __slots__ = ['_tab']
@@ -46,6 +48,11 @@ class AudioPacket(object):
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
+
+    # AudioPacket
+    def SamplesIsNone(self):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
+        return o == 0
 
 def AudioPacketStart(builder): builder.StartObject(2)
 def AudioPacketAddTimestamp(builder, timestamp): builder.PrependUint64Slot(0, timestamp, 0)

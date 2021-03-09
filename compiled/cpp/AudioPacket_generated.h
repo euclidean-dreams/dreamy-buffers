@@ -9,8 +9,10 @@
 namespace ImpresarioSerialization {
 
 struct AudioPacket;
+struct AudioPacketBuilder;
 
 struct AudioPacket FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef AudioPacketBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TIMESTAMP = 4,
     VT_SAMPLES = 6
@@ -31,6 +33,7 @@ struct AudioPacket FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct AudioPacketBuilder {
+  typedef AudioPacket Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_timestamp(uint64_t timestamp) {

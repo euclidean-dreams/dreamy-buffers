@@ -6,21 +6,21 @@ import flatbuffers
 from flatbuffers.compat import import_numpy
 np = import_numpy()
 
-class LedPayload(object):
+class LedPacket(object):
     __slots__ = ['_tab']
 
     @classmethod
-    def GetRootAsLedPayload(cls, buf, offset):
+    def GetRootAsLedPacket(cls, buf, offset):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
-        x = LedPayload()
+        x = LedPacket()
         x.Init(buf, n + offset)
         return x
 
-    # LedPayload
+    # LedPacket
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
 
-    # LedPayload
+    # LedPacket
     def Leds(self, j):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
@@ -32,19 +32,19 @@ class LedPayload(object):
             return obj
         return None
 
-    # LedPayload
+    # LedPacket
     def LedsLength(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
-    # LedPayload
+    # LedPacket
     def LedsIsNone(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         return o == 0
 
-def LedPayloadStart(builder): builder.StartObject(1)
-def LedPayloadAddLeds(builder, leds): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(leds), 0)
-def LedPayloadStartLedsVector(builder, numElems): return builder.StartVector(3, numElems, 1)
-def LedPayloadEnd(builder): return builder.EndObject()
+def LedPacketStart(builder): builder.StartObject(1)
+def LedPacketAddLeds(builder, leds): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(leds), 0)
+def LedPacketStartLedsVector(builder, numElems): return builder.StartVector(3, numElems, 1)
+def LedPacketEnd(builder): return builder.EndObject()
