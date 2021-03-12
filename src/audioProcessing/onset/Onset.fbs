@@ -5,6 +5,7 @@ namespace ImpresarioSerialization;
 table Onset {
     timestamp:uint64;
     method:OnsetMethod;
+    sampleTimestamp:uint64;
 }
 
 root_type Onset;
