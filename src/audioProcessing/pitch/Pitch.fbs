@@ -1,0 +1,12 @@
+include "audioProcessing/pitch/PitchMethod.fbs";
+
+namespace ImpresarioSerialization;
+
+table Pitch {
+    timestamp:uint64;
+    method:PitchMethod;
+    confidence:float32;
+    sampleTimestamp:uint64;
+}
+
+root_type Pitch;
