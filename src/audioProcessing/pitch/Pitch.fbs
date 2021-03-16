@@ -4,7 +4,7 @@ namespace ImpresarioSerialization;
 
 table Pitch {
     method:PitchMethod;
-    pitch:float32;
+    pitch:uint8;
     confidence:float32;
     sampleTimestamp:uint64;
 }
