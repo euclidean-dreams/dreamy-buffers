@@ -3,7 +3,6 @@ include "audioProcessing/pitch/PitchMethod.fbs";
 namespace ImpresarioSerialization;
 
 table Pitch {
-    timestamp:uint64;
     method:PitchMethod;
     pitch:float32;
     confidence:float32;
