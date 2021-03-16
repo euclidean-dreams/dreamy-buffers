@@ -1,9 +1,0 @@
-include "performance/RGBColor.fbs";
-
-namespace ImpresarioSerialization;
-
-table LedPacket {
-    leds:[RGBColor];
-}
-
-root_type LedPacket;
