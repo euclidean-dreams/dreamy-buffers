@@ -28,21 +28,29 @@ class PitchProcessorParameters(object):
         return 0
 
     # PitchProcessorParameters
-    def Threshold(self):
+    def Pitch(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
     # PitchProcessorParameters
-    def Silence(self):
+    def Threshold(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
-def PitchProcessorParametersStart(builder): builder.StartObject(3)
+    # PitchProcessorParameters
+    def Silence(self):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
+        if o != 0:
+            return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
+        return 0.0
+
+def PitchProcessorParametersStart(builder): builder.StartObject(4)
 def PitchProcessorParametersAddMethod(builder, method): builder.PrependInt8Slot(0, method, 0)
-def PitchProcessorParametersAddThreshold(builder, threshold): builder.PrependFloat32Slot(1, threshold, 0.0)
-def PitchProcessorParametersAddSilence(builder, silence): builder.PrependFloat32Slot(2, silence, 0.0)
+def PitchProcessorParametersAddPitch(builder, pitch): builder.PrependFloat32Slot(1, pitch, 0.0)
+def PitchProcessorParametersAddThreshold(builder, threshold): builder.PrependFloat32Slot(2, threshold, 0.0)
+def PitchProcessorParametersAddSilence(builder, silence): builder.PrependFloat32Slot(3, silence, 0.0)
 def PitchProcessorParametersEnd(builder): return builder.EndObject()
