@@ -4,5 +4,7 @@
 
 class Identifier(object):
     onset = 0
-    pitch = 1
+    onsetProcessorParameters = 1
+    pitch = 2
+    pitchProcessorParameters = 3
 

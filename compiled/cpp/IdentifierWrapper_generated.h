@@ -13,30 +13,36 @@ struct IdentifierWrapperBuilder;
 
 enum class Identifier : int8_t {
   onset = 0,
-  pitch = 1,
+  onsetProcessorParameters = 1,
+  pitch = 2,
+  pitchProcessorParameters = 3,
   MIN = onset,
-  MAX = pitch
+  MAX = pitchProcessorParameters
 };
 
-inline const Identifier (&EnumValuesIdentifier())[2] {
+inline const Identifier (&EnumValuesIdentifier())[4] {
   static const Identifier values[] = {
     Identifier::onset,
-    Identifier::pitch
+    Identifier::onsetProcessorParameters,
+    Identifier::pitch,
+    Identifier::pitchProcessorParameters
   };
   return values;
 }
 
 inline const char * const *EnumNamesIdentifier() {
-  static const char * const names[3] = {
+  static const char * const names[5] = {
     "onset",
+    "onsetProcessorParameters",
     "pitch",
+    "pitchProcessorParameters",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameIdentifier(Identifier e) {
-  if (flatbuffers::IsOutRange(e, Identifier::onset, Identifier::pitch)) return "";
+  if (flatbuffers::IsOutRange(e, Identifier::onset, Identifier::pitchProcessorParameters)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesIdentifier()[index];
 }

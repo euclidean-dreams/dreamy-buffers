@@ -2,7 +2,9 @@ namespace ImpresarioSerialization;
 
 enum Identifier:byte {
     onset,
-    pitch
+    onsetProcessorParameters,
+    pitch,
+    pitchProcessorParameters
 }
 
 table IdentifierWrapper {
