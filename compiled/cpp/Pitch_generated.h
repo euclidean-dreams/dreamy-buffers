@@ -18,14 +18,18 @@ struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TIMESTAMP = 4,
     VT_METHOD = 6,
-    VT_CONFIDENCE = 8,
-    VT_SAMPLETIMESTAMP = 10
+    VT_PITCH = 8,
+    VT_CONFIDENCE = 10,
+    VT_SAMPLETIMESTAMP = 12
   };
   uint64_t timestamp() const {
     return GetField<uint64_t>(VT_TIMESTAMP, 0);
   }
   ImpresarioSerialization::PitchMethod method() const {
     return static_cast<ImpresarioSerialization::PitchMethod>(GetField<int8_t>(VT_METHOD, 0));
+  }
+  float pitch() const {
+    return GetField<float>(VT_PITCH, 0.0f);
   }
   float confidence() const {
     return GetField<float>(VT_CONFIDENCE, 0.0f);
@@ -37,6 +41,7 @@ struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     return VerifyTableStart(verifier) &&
            VerifyField<uint64_t>(verifier, VT_TIMESTAMP) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
+           VerifyField<float>(verifier, VT_PITCH) &&
            VerifyField<float>(verifier, VT_CONFIDENCE) &&
            VerifyField<uint64_t>(verifier, VT_SAMPLETIMESTAMP) &&
            verifier.EndTable();
@@ -52,6 +57,9 @@ struct PitchBuilder {
   }
   void add_method(ImpresarioSerialization::PitchMethod method) {
     fbb_.AddElement<int8_t>(Pitch::VT_METHOD, static_cast<int8_t>(method), 0);
+  }
+  void add_pitch(float pitch) {
+    fbb_.AddElement<float>(Pitch::VT_PITCH, pitch, 0.0f);
   }
   void add_confidence(float confidence) {
     fbb_.AddElement<float>(Pitch::VT_CONFIDENCE, confidence, 0.0f);
@@ -75,12 +83,14 @@ inline flatbuffers::Offset<Pitch> CreatePitch(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint64_t timestamp = 0,
     ImpresarioSerialization::PitchMethod method = ImpresarioSerialization::PitchMethod::schmitt,
+    float pitch = 0.0f,
     float confidence = 0.0f,
     uint64_t sampleTimestamp = 0) {
   PitchBuilder builder_(_fbb);
   builder_.add_sampleTimestamp(sampleTimestamp);
   builder_.add_timestamp(timestamp);
   builder_.add_confidence(confidence);
+  builder_.add_pitch(pitch);
   builder_.add_method(method);
   return builder_.Finish();
 }

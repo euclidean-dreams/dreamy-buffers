@@ -17,15 +17,11 @@ struct PitchProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   typedef PitchProcessorParametersBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_METHOD = 4,
-    VT_PITCH = 6,
-    VT_THRESHOLD = 8,
-    VT_SILENCE = 10
+    VT_THRESHOLD = 6,
+    VT_SILENCE = 8
   };
   ImpresarioSerialization::PitchMethod method() const {
     return static_cast<ImpresarioSerialization::PitchMethod>(GetField<int8_t>(VT_METHOD, 0));
-  }
-  float pitch() const {
-    return GetField<float>(VT_PITCH, 0.0f);
   }
   float threshold() const {
     return GetField<float>(VT_THRESHOLD, 0.0f);
@@ -36,7 +32,6 @@ struct PitchProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
-           VerifyField<float>(verifier, VT_PITCH) &&
            VerifyField<float>(verifier, VT_THRESHOLD) &&
            VerifyField<float>(verifier, VT_SILENCE) &&
            verifier.EndTable();
@@ -49,9 +44,6 @@ struct PitchProcessorParametersBuilder {
   flatbuffers::uoffset_t start_;
   void add_method(ImpresarioSerialization::PitchMethod method) {
     fbb_.AddElement<int8_t>(PitchProcessorParameters::VT_METHOD, static_cast<int8_t>(method), 0);
-  }
-  void add_pitch(float pitch) {
-    fbb_.AddElement<float>(PitchProcessorParameters::VT_PITCH, pitch, 0.0f);
   }
   void add_threshold(float threshold) {
     fbb_.AddElement<float>(PitchProcessorParameters::VT_THRESHOLD, threshold, 0.0f);
@@ -74,13 +66,11 @@ struct PitchProcessorParametersBuilder {
 inline flatbuffers::Offset<PitchProcessorParameters> CreatePitchProcessorParameters(
     flatbuffers::FlatBufferBuilder &_fbb,
     ImpresarioSerialization::PitchMethod method = ImpresarioSerialization::PitchMethod::schmitt,
-    float pitch = 0.0f,
     float threshold = 0.0f,
     float silence = 0.0f) {
   PitchProcessorParametersBuilder builder_(_fbb);
   builder_.add_silence(silence);
   builder_.add_threshold(threshold);
-  builder_.add_pitch(pitch);
   builder_.add_method(method);
   return builder_.Finish();
 }

@@ -4,7 +4,6 @@ namespace ImpresarioSerialization;
 
 table PitchProcessorParameters {
     method:PitchMethod;
-    pitch:float32;
     threshold:float32;
     silence:float32;
 }
