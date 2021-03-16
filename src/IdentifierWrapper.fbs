@@ -1,0 +1,12 @@
+namespace ImpresarioSerialization;
+
+enum Identifier:byte {
+    onset,
+    pitch
+}
+
+table IdentifierWrapper {
+    identifier:Identifier;
+}
+
+root_type IdentifierWrapper;
