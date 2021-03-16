@@ -24,8 +24,8 @@ struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   ImpresarioSerialization::PitchMethod method() const {
     return static_cast<ImpresarioSerialization::PitchMethod>(GetField<int8_t>(VT_METHOD, 0));
   }
-  float pitch() const {
-    return GetField<float>(VT_PITCH, 0.0f);
+  uint8_t pitch() const {
+    return GetField<uint8_t>(VT_PITCH, 0);
   }
   float confidence() const {
     return GetField<float>(VT_CONFIDENCE, 0.0f);
@@ -36,7 +36,7 @@ struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
-           VerifyField<float>(verifier, VT_PITCH) &&
+           VerifyField<uint8_t>(verifier, VT_PITCH) &&
            VerifyField<float>(verifier, VT_CONFIDENCE) &&
            VerifyField<uint64_t>(verifier, VT_SAMPLETIMESTAMP) &&
            verifier.EndTable();
@@ -50,8 +50,8 @@ struct PitchBuilder {
   void add_method(ImpresarioSerialization::PitchMethod method) {
     fbb_.AddElement<int8_t>(Pitch::VT_METHOD, static_cast<int8_t>(method), 0);
   }
-  void add_pitch(float pitch) {
-    fbb_.AddElement<float>(Pitch::VT_PITCH, pitch, 0.0f);
+  void add_pitch(uint8_t pitch) {
+    fbb_.AddElement<uint8_t>(Pitch::VT_PITCH, pitch, 0);
   }
   void add_confidence(float confidence) {
     fbb_.AddElement<float>(Pitch::VT_CONFIDENCE, confidence, 0.0f);
@@ -74,7 +74,7 @@ struct PitchBuilder {
 inline flatbuffers::Offset<Pitch> CreatePitch(
     flatbuffers::FlatBufferBuilder &_fbb,
     ImpresarioSerialization::PitchMethod method = ImpresarioSerialization::PitchMethod::schmitt,
-    float pitch = 0.0f,
+    uint8_t pitch = 0,
     float confidence = 0.0f,
     uint64_t sampleTimestamp = 0) {
   PitchBuilder builder_(_fbb);
