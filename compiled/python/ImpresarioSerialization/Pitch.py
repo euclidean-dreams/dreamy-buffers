@@ -48,9 +48,17 @@ class Pitch(object):
             return self._tab.Get(flatbuffers.number_types.Uint64Flags, o + self._tab.Pos)
         return 0
 
-def PitchStart(builder): builder.StartObject(4)
+    # Pitch
+    def FrequencyBand(self):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
+        if o != 0:
+            return self._tab.Get(flatbuffers.number_types.Int8Flags, o + self._tab.Pos)
+        return 0
+
+def PitchStart(builder): builder.StartObject(5)
 def PitchAddMethod(builder, method): builder.PrependInt8Slot(0, method, 0)
 def PitchAddPitch(builder, pitch): builder.PrependUint8Slot(1, pitch, 0)
 def PitchAddConfidence(builder, confidence): builder.PrependFloat32Slot(2, confidence, 0.0)
 def PitchAddSampleTimestamp(builder, sampleTimestamp): builder.PrependUint64Slot(3, sampleTimestamp, 0)
+def PitchAddFrequencyBand(builder, frequencyBand): builder.PrependInt8Slot(4, frequencyBand, 0)
 def PitchEnd(builder): return builder.EndObject()

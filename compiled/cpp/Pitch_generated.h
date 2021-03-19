@@ -6,6 +6,7 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+#include "FrequencyBand_generated.h"
 #include "PitchMethod_generated.h"
 
 namespace ImpresarioSerialization {
@@ -19,7 +20,8 @@ struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_METHOD = 4,
     VT_PITCH = 6,
     VT_CONFIDENCE = 8,
-    VT_SAMPLETIMESTAMP = 10
+    VT_SAMPLETIMESTAMP = 10,
+    VT_FREQUENCYBAND = 12
   };
   ImpresarioSerialization::PitchMethod method() const {
     return static_cast<ImpresarioSerialization::PitchMethod>(GetField<int8_t>(VT_METHOD, 0));
@@ -33,12 +35,16 @@ struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint64_t sampleTimestamp() const {
     return GetField<uint64_t>(VT_SAMPLETIMESTAMP, 0);
   }
+  ImpresarioSerialization::FrequencyBand frequencyBand() const {
+    return static_cast<ImpresarioSerialization::FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
            VerifyField<uint8_t>(verifier, VT_PITCH) &&
            VerifyField<float>(verifier, VT_CONFIDENCE) &&
            VerifyField<uint64_t>(verifier, VT_SAMPLETIMESTAMP) &&
+           VerifyField<int8_t>(verifier, VT_FREQUENCYBAND) &&
            verifier.EndTable();
   }
 };
@@ -59,6 +65,9 @@ struct PitchBuilder {
   void add_sampleTimestamp(uint64_t sampleTimestamp) {
     fbb_.AddElement<uint64_t>(Pitch::VT_SAMPLETIMESTAMP, sampleTimestamp, 0);
   }
+  void add_frequencyBand(ImpresarioSerialization::FrequencyBand frequencyBand) {
+    fbb_.AddElement<int8_t>(Pitch::VT_FREQUENCYBAND, static_cast<int8_t>(frequencyBand), 0);
+  }
   explicit PitchBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -76,10 +85,12 @@ inline flatbuffers::Offset<Pitch> CreatePitch(
     ImpresarioSerialization::PitchMethod method = ImpresarioSerialization::PitchMethod::schmitt,
     uint8_t pitch = 0,
     float confidence = 0.0f,
-    uint64_t sampleTimestamp = 0) {
+    uint64_t sampleTimestamp = 0,
+    ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all) {
   PitchBuilder builder_(_fbb);
   builder_.add_sampleTimestamp(sampleTimestamp);
   builder_.add_confidence(confidence);
+  builder_.add_frequencyBand(frequencyBand);
   builder_.add_pitch(pitch);
   builder_.add_method(method);
   return builder_.Finish();
