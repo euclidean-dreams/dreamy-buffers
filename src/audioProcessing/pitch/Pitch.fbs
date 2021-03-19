@@ -4,11 +4,11 @@ include "audioProcessing/FrequencyBand.fbs";
 namespace ImpresarioSerialization;
 
 table Pitch {
+    sampleTimestamp:uint64;
+    frequencyBand:FrequencyBand;
     method:PitchMethod;
     pitch:uint8;
     confidence:float32;
-    sampleTimestamp:uint64;
-    frequencyBand:FrequencyBand;
 }
 
 root_type Pitch;

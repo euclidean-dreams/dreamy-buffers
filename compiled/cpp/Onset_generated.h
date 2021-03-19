@@ -17,29 +17,29 @@ struct OnsetBuilder;
 struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef OnsetBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_TIMESTAMP = 4,
-    VT_METHOD = 6,
-    VT_SAMPLETIMESTAMP = 8,
-    VT_FREQUENCYBAND = 10
+    VT_SAMPLETIMESTAMP = 4,
+    VT_FREQUENCYBAND = 6,
+    VT_METHOD = 8,
+    VT_TIMESTAMP = 10
   };
-  uint64_t timestamp() const {
-    return GetField<uint64_t>(VT_TIMESTAMP, 0);
-  }
-  ImpresarioSerialization::OnsetMethod method() const {
-    return static_cast<ImpresarioSerialization::OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
-  }
   uint64_t sampleTimestamp() const {
     return GetField<uint64_t>(VT_SAMPLETIMESTAMP, 0);
   }
   ImpresarioSerialization::FrequencyBand frequencyBand() const {
     return static_cast<ImpresarioSerialization::FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
   }
+  ImpresarioSerialization::OnsetMethod method() const {
+    return static_cast<ImpresarioSerialization::OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
+  }
+  uint64_t timestamp() const {
+    return GetField<uint64_t>(VT_TIMESTAMP, 0);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint64_t>(verifier, VT_TIMESTAMP) &&
-           VerifyField<int8_t>(verifier, VT_METHOD) &&
            VerifyField<uint64_t>(verifier, VT_SAMPLETIMESTAMP) &&
            VerifyField<int8_t>(verifier, VT_FREQUENCYBAND) &&
+           VerifyField<int8_t>(verifier, VT_METHOD) &&
+           VerifyField<uint64_t>(verifier, VT_TIMESTAMP) &&
            verifier.EndTable();
   }
 };
@@ -48,17 +48,17 @@ struct OnsetBuilder {
   typedef Onset Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_timestamp(uint64_t timestamp) {
-    fbb_.AddElement<uint64_t>(Onset::VT_TIMESTAMP, timestamp, 0);
-  }
-  void add_method(ImpresarioSerialization::OnsetMethod method) {
-    fbb_.AddElement<int8_t>(Onset::VT_METHOD, static_cast<int8_t>(method), 0);
-  }
   void add_sampleTimestamp(uint64_t sampleTimestamp) {
     fbb_.AddElement<uint64_t>(Onset::VT_SAMPLETIMESTAMP, sampleTimestamp, 0);
   }
   void add_frequencyBand(ImpresarioSerialization::FrequencyBand frequencyBand) {
     fbb_.AddElement<int8_t>(Onset::VT_FREQUENCYBAND, static_cast<int8_t>(frequencyBand), 0);
+  }
+  void add_method(ImpresarioSerialization::OnsetMethod method) {
+    fbb_.AddElement<int8_t>(Onset::VT_METHOD, static_cast<int8_t>(method), 0);
+  }
+  void add_timestamp(uint64_t timestamp) {
+    fbb_.AddElement<uint64_t>(Onset::VT_TIMESTAMP, timestamp, 0);
   }
   explicit OnsetBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -74,15 +74,15 @@ struct OnsetBuilder {
 
 inline flatbuffers::Offset<Onset> CreateOnset(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint64_t timestamp = 0,
-    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::energy,
     uint64_t sampleTimestamp = 0,
-    ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all) {
+    ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all,
+    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::energy,
+    uint64_t timestamp = 0) {
   OnsetBuilder builder_(_fbb);
-  builder_.add_sampleTimestamp(sampleTimestamp);
   builder_.add_timestamp(timestamp);
-  builder_.add_frequencyBand(frequencyBand);
+  builder_.add_sampleTimestamp(sampleTimestamp);
   builder_.add_method(method);
+  builder_.add_frequencyBand(frequencyBand);
   return builder_.Finish();
 }
 

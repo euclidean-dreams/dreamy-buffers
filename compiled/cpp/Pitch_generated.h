@@ -17,12 +17,18 @@ struct PitchBuilder;
 struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef PitchBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_METHOD = 4,
-    VT_PITCH = 6,
-    VT_CONFIDENCE = 8,
-    VT_SAMPLETIMESTAMP = 10,
-    VT_FREQUENCYBAND = 12
+    VT_SAMPLETIMESTAMP = 4,
+    VT_FREQUENCYBAND = 6,
+    VT_METHOD = 8,
+    VT_PITCH = 10,
+    VT_CONFIDENCE = 12
   };
+  uint64_t sampleTimestamp() const {
+    return GetField<uint64_t>(VT_SAMPLETIMESTAMP, 0);
+  }
+  ImpresarioSerialization::FrequencyBand frequencyBand() const {
+    return static_cast<ImpresarioSerialization::FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
+  }
   ImpresarioSerialization::PitchMethod method() const {
     return static_cast<ImpresarioSerialization::PitchMethod>(GetField<int8_t>(VT_METHOD, 0));
   }
@@ -32,19 +38,13 @@ struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   float confidence() const {
     return GetField<float>(VT_CONFIDENCE, 0.0f);
   }
-  uint64_t sampleTimestamp() const {
-    return GetField<uint64_t>(VT_SAMPLETIMESTAMP, 0);
-  }
-  ImpresarioSerialization::FrequencyBand frequencyBand() const {
-    return static_cast<ImpresarioSerialization::FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
-  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyField<uint64_t>(verifier, VT_SAMPLETIMESTAMP) &&
+           VerifyField<int8_t>(verifier, VT_FREQUENCYBAND) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
            VerifyField<uint8_t>(verifier, VT_PITCH) &&
            VerifyField<float>(verifier, VT_CONFIDENCE) &&
-           VerifyField<uint64_t>(verifier, VT_SAMPLETIMESTAMP) &&
-           VerifyField<int8_t>(verifier, VT_FREQUENCYBAND) &&
            verifier.EndTable();
   }
 };
@@ -53,6 +53,12 @@ struct PitchBuilder {
   typedef Pitch Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
+  void add_sampleTimestamp(uint64_t sampleTimestamp) {
+    fbb_.AddElement<uint64_t>(Pitch::VT_SAMPLETIMESTAMP, sampleTimestamp, 0);
+  }
+  void add_frequencyBand(ImpresarioSerialization::FrequencyBand frequencyBand) {
+    fbb_.AddElement<int8_t>(Pitch::VT_FREQUENCYBAND, static_cast<int8_t>(frequencyBand), 0);
+  }
   void add_method(ImpresarioSerialization::PitchMethod method) {
     fbb_.AddElement<int8_t>(Pitch::VT_METHOD, static_cast<int8_t>(method), 0);
   }
@@ -61,12 +67,6 @@ struct PitchBuilder {
   }
   void add_confidence(float confidence) {
     fbb_.AddElement<float>(Pitch::VT_CONFIDENCE, confidence, 0.0f);
-  }
-  void add_sampleTimestamp(uint64_t sampleTimestamp) {
-    fbb_.AddElement<uint64_t>(Pitch::VT_SAMPLETIMESTAMP, sampleTimestamp, 0);
-  }
-  void add_frequencyBand(ImpresarioSerialization::FrequencyBand frequencyBand) {
-    fbb_.AddElement<int8_t>(Pitch::VT_FREQUENCYBAND, static_cast<int8_t>(frequencyBand), 0);
   }
   explicit PitchBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -82,17 +82,17 @@ struct PitchBuilder {
 
 inline flatbuffers::Offset<Pitch> CreatePitch(
     flatbuffers::FlatBufferBuilder &_fbb,
+    uint64_t sampleTimestamp = 0,
+    ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all,
     ImpresarioSerialization::PitchMethod method = ImpresarioSerialization::PitchMethod::schmitt,
     uint8_t pitch = 0,
-    float confidence = 0.0f,
-    uint64_t sampleTimestamp = 0,
-    ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all) {
+    float confidence = 0.0f) {
   PitchBuilder builder_(_fbb);
   builder_.add_sampleTimestamp(sampleTimestamp);
   builder_.add_confidence(confidence);
-  builder_.add_frequencyBand(frequencyBand);
   builder_.add_pitch(pitch);
   builder_.add_method(method);
+  builder_.add_frequencyBand(frequencyBand);
   return builder_.Finish();
 }
 
