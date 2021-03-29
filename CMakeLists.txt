@@ -5,6 +5,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_POLICY_DEFAULT_CMP0048 NEW)
 
 include(lib/cmake-utils/dependency-integrator.cmake)
+
+SET(FLATBUFFERS_BUILD_TESTS OFF)
+SET(FLATBUFFERS_INSTALL OFF)
+SET(FLATBUFFERS_BUILD_FLATC OFF)
+SET(FLATBUFFERS_BUILD_FLATHASH OFF)
+SET(FLATBUFFERS_INSTALL OFF)
+SET(FLATBUFFERS_INSTALL OFF)
 integrate_cmake_dependency(
         NAME flatbuffers
         GIT_URL git@github.com:google/flatbuffers.git
