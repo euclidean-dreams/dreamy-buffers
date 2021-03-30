@@ -19,5 +19,5 @@ integrate_cmake_dependency(
 )
 
 add_library(impresario-serialization INTERFACE)
-target_include_directories(impresario-serialization INTERFACE compiled/cpp)
+target_include_directories(impresario-serialization INTERFACE include)
 target_link_libraries(impresario-serialization INTERFACE flatbuffers)
