@@ -35,8 +35,8 @@ struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint64_t timestamp() const {
     return GetField<uint64_t>(VT_TIMESTAMP, 0);
   }
-  uint64_t confidence() const {
-    return GetField<uint64_t>(VT_CONFIDENCE, 0);
+  float confidence() const {
+    return GetField<float>(VT_CONFIDENCE, 0.0f);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -44,7 +44,7 @@ struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int8_t>(verifier, VT_FREQUENCYBAND) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
            VerifyField<uint64_t>(verifier, VT_TIMESTAMP) &&
-           VerifyField<uint64_t>(verifier, VT_CONFIDENCE) &&
+           VerifyField<float>(verifier, VT_CONFIDENCE) &&
            verifier.EndTable();
   }
 };
@@ -65,8 +65,8 @@ struct OnsetBuilder {
   void add_timestamp(uint64_t timestamp) {
     fbb_.AddElement<uint64_t>(Onset::VT_TIMESTAMP, timestamp, 0);
   }
-  void add_confidence(uint64_t confidence) {
-    fbb_.AddElement<uint64_t>(Onset::VT_CONFIDENCE, confidence, 0);
+  void add_confidence(float confidence) {
+    fbb_.AddElement<float>(Onset::VT_CONFIDENCE, confidence, 0.0f);
   }
   explicit OnsetBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -86,11 +86,11 @@ inline flatbuffers::Offset<Onset> CreateOnset(
     ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all,
     ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::specflux,
     uint64_t timestamp = 0,
-    uint64_t confidence = 0) {
+    float confidence = 0.0f) {
   OnsetBuilder builder_(_fbb);
-  builder_.add_confidence(confidence);
   builder_.add_timestamp(timestamp);
   builder_.add_sampleTimestamp(sampleTimestamp);
+  builder_.add_confidence(confidence);
   builder_.add_method(method);
   builder_.add_frequencyBand(frequencyBand);
   return builder_.Finish();

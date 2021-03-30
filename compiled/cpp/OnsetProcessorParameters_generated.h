@@ -6,6 +6,7 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+#include "FrequencyBand_generated.h"
 #include "OnsetMethod_generated.h"
 
 namespace ImpresarioSerialization {
@@ -17,33 +18,33 @@ struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   typedef OnsetProcessorParametersBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_METHOD = 4,
-    VT_THRESHOLD = 6,
-    VT_MINIOI_MS = 8,
-    VT_SILENCE = 10,
-    VT_ADAPTIVE_WHITENING = 12
+    VT_FREQUENCYBAND = 6,
+    VT_THRESHOLD = 8,
+    VT_PEAKPICKINGWINDOWSIZE = 10,
+    VT_PEAKPICKINGWINDOWTAIL = 12
   };
   ImpresarioSerialization::OnsetMethod method() const {
     return static_cast<ImpresarioSerialization::OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
   }
+  ImpresarioSerialization::FrequencyBand frequencyBand() const {
+    return static_cast<ImpresarioSerialization::FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
+  }
   float threshold() const {
     return GetField<float>(VT_THRESHOLD, 0.0f);
   }
-  int32_t minioi_ms() const {
-    return GetField<int32_t>(VT_MINIOI_MS, 0);
+  uint8_t peakPickingWindowSize() const {
+    return GetField<uint8_t>(VT_PEAKPICKINGWINDOWSIZE, 0);
   }
-  float silence() const {
-    return GetField<float>(VT_SILENCE, 0.0f);
-  }
-  int8_t adaptive_whitening() const {
-    return GetField<int8_t>(VT_ADAPTIVE_WHITENING, 0);
+  uint8_t peakPickingWindowTail() const {
+    return GetField<uint8_t>(VT_PEAKPICKINGWINDOWTAIL, 0);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
+           VerifyField<int8_t>(verifier, VT_FREQUENCYBAND) &&
            VerifyField<float>(verifier, VT_THRESHOLD) &&
-           VerifyField<int32_t>(verifier, VT_MINIOI_MS) &&
-           VerifyField<float>(verifier, VT_SILENCE) &&
-           VerifyField<int8_t>(verifier, VT_ADAPTIVE_WHITENING) &&
+           VerifyField<uint8_t>(verifier, VT_PEAKPICKINGWINDOWSIZE) &&
+           VerifyField<uint8_t>(verifier, VT_PEAKPICKINGWINDOWTAIL) &&
            verifier.EndTable();
   }
 };
@@ -55,17 +56,17 @@ struct OnsetProcessorParametersBuilder {
   void add_method(ImpresarioSerialization::OnsetMethod method) {
     fbb_.AddElement<int8_t>(OnsetProcessorParameters::VT_METHOD, static_cast<int8_t>(method), 0);
   }
+  void add_frequencyBand(ImpresarioSerialization::FrequencyBand frequencyBand) {
+    fbb_.AddElement<int8_t>(OnsetProcessorParameters::VT_FREQUENCYBAND, static_cast<int8_t>(frequencyBand), 0);
+  }
   void add_threshold(float threshold) {
     fbb_.AddElement<float>(OnsetProcessorParameters::VT_THRESHOLD, threshold, 0.0f);
   }
-  void add_minioi_ms(int32_t minioi_ms) {
-    fbb_.AddElement<int32_t>(OnsetProcessorParameters::VT_MINIOI_MS, minioi_ms, 0);
+  void add_peakPickingWindowSize(uint8_t peakPickingWindowSize) {
+    fbb_.AddElement<uint8_t>(OnsetProcessorParameters::VT_PEAKPICKINGWINDOWSIZE, peakPickingWindowSize, 0);
   }
-  void add_silence(float silence) {
-    fbb_.AddElement<float>(OnsetProcessorParameters::VT_SILENCE, silence, 0.0f);
-  }
-  void add_adaptive_whitening(int8_t adaptive_whitening) {
-    fbb_.AddElement<int8_t>(OnsetProcessorParameters::VT_ADAPTIVE_WHITENING, adaptive_whitening, 0);
+  void add_peakPickingWindowTail(uint8_t peakPickingWindowTail) {
+    fbb_.AddElement<uint8_t>(OnsetProcessorParameters::VT_PEAKPICKINGWINDOWTAIL, peakPickingWindowTail, 0);
   }
   explicit OnsetProcessorParametersBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -82,15 +83,15 @@ struct OnsetProcessorParametersBuilder {
 inline flatbuffers::Offset<OnsetProcessorParameters> CreateOnsetProcessorParameters(
     flatbuffers::FlatBufferBuilder &_fbb,
     ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::specflux,
+    ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all,
     float threshold = 0.0f,
-    int32_t minioi_ms = 0,
-    float silence = 0.0f,
-    int8_t adaptive_whitening = 0) {
+    uint8_t peakPickingWindowSize = 0,
+    uint8_t peakPickingWindowTail = 0) {
   OnsetProcessorParametersBuilder builder_(_fbb);
-  builder_.add_silence(silence);
-  builder_.add_minioi_ms(minioi_ms);
   builder_.add_threshold(threshold);
-  builder_.add_adaptive_whitening(adaptive_whitening);
+  builder_.add_peakPickingWindowTail(peakPickingWindowTail);
+  builder_.add_peakPickingWindowSize(peakPickingWindowSize);
+  builder_.add_frequencyBand(frequencyBand);
   builder_.add_method(method);
   return builder_.Finish();
 }
