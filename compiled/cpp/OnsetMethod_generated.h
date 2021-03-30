@@ -9,44 +9,20 @@
 namespace ImpresarioSerialization {
 
 enum class OnsetMethod : int8_t {
-  energy = 0,
-  hfc = 1,
-  complex = 2,
-  phase = 3,
-  wphase = 4,
-  specdiff = 5,
-  kl = 6,
-  mkl = 7,
-  specflux = 8,
-  MIN = energy,
+  specflux = 0,
+  MIN = specflux,
   MAX = specflux
 };
 
-inline const OnsetMethod (&EnumValuesOnsetMethod())[9] {
+inline const OnsetMethod (&EnumValuesOnsetMethod())[1] {
   static const OnsetMethod values[] = {
-    OnsetMethod::energy,
-    OnsetMethod::hfc,
-    OnsetMethod::complex,
-    OnsetMethod::phase,
-    OnsetMethod::wphase,
-    OnsetMethod::specdiff,
-    OnsetMethod::kl,
-    OnsetMethod::mkl,
     OnsetMethod::specflux
   };
   return values;
 }
 
 inline const char * const *EnumNamesOnsetMethod() {
-  static const char * const names[10] = {
-    "energy",
-    "hfc",
-    "complex",
-    "phase",
-    "wphase",
-    "specdiff",
-    "kl",
-    "mkl",
+  static const char * const names[2] = {
     "specflux",
     nullptr
   };
@@ -54,7 +30,7 @@ inline const char * const *EnumNamesOnsetMethod() {
 }
 
 inline const char *EnumNameOnsetMethod(OnsetMethod e) {
-  if (flatbuffers::IsOutRange(e, OnsetMethod::energy, OnsetMethod::specflux)) return "";
+  if (flatbuffers::IsOutRange(e, OnsetMethod::specflux, OnsetMethod::specflux)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesOnsetMethod()[index];
 }

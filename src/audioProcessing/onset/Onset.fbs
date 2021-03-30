@@ -8,6 +8,7 @@ table Onset {
     frequencyBand:FrequencyBand;
     method:OnsetMethod;
     timestamp:uint64;
+    confidence:uint64;
 }
 
 root_type Onset;

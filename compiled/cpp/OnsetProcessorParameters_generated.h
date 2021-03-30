@@ -81,7 +81,7 @@ struct OnsetProcessorParametersBuilder {
 
 inline flatbuffers::Offset<OnsetProcessorParameters> CreateOnsetProcessorParameters(
     flatbuffers::FlatBufferBuilder &_fbb,
-    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::energy,
+    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::specflux,
     float threshold = 0.0f,
     int32_t minioi_ms = 0,
     float silence = 0.0f,

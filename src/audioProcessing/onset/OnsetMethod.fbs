@@ -1,13 +1,5 @@
 namespace ImpresarioSerialization;
 
 enum OnsetMethod:byte {
-    energy,
-    hfc,
-    complex,
-    phase,
-    wphase,
-    specdiff,
-    kl,
-    mkl,
     specflux
 }

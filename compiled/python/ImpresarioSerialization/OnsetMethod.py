@@ -3,13 +3,5 @@
 # namespace: ImpresarioSerialization
 
 class OnsetMethod(object):
-    energy = 0
-    hfc = 1
-    complex = 2
-    phase = 3
-    wphase = 4
-    specdiff = 5
-    kl = 6
-    mkl = 7
-    specflux = 8
+    specflux = 0
 

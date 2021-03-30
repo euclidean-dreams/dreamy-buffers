@@ -20,7 +20,8 @@ struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_SAMPLETIMESTAMP = 4,
     VT_FREQUENCYBAND = 6,
     VT_METHOD = 8,
-    VT_TIMESTAMP = 10
+    VT_TIMESTAMP = 10,
+    VT_CONFIDENCE = 12
   };
   uint64_t sampleTimestamp() const {
     return GetField<uint64_t>(VT_SAMPLETIMESTAMP, 0);
@@ -34,12 +35,16 @@ struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint64_t timestamp() const {
     return GetField<uint64_t>(VT_TIMESTAMP, 0);
   }
+  uint64_t confidence() const {
+    return GetField<uint64_t>(VT_CONFIDENCE, 0);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint64_t>(verifier, VT_SAMPLETIMESTAMP) &&
            VerifyField<int8_t>(verifier, VT_FREQUENCYBAND) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
            VerifyField<uint64_t>(verifier, VT_TIMESTAMP) &&
+           VerifyField<uint64_t>(verifier, VT_CONFIDENCE) &&
            verifier.EndTable();
   }
 };
@@ -60,6 +65,9 @@ struct OnsetBuilder {
   void add_timestamp(uint64_t timestamp) {
     fbb_.AddElement<uint64_t>(Onset::VT_TIMESTAMP, timestamp, 0);
   }
+  void add_confidence(uint64_t confidence) {
+    fbb_.AddElement<uint64_t>(Onset::VT_CONFIDENCE, confidence, 0);
+  }
   explicit OnsetBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -76,9 +84,11 @@ inline flatbuffers::Offset<Onset> CreateOnset(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint64_t sampleTimestamp = 0,
     ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all,
-    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::energy,
-    uint64_t timestamp = 0) {
+    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::specflux,
+    uint64_t timestamp = 0,
+    uint64_t confidence = 0) {
   OnsetBuilder builder_(_fbb);
+  builder_.add_confidence(confidence);
   builder_.add_timestamp(timestamp);
   builder_.add_sampleTimestamp(sampleTimestamp);
   builder_.add_method(method);
