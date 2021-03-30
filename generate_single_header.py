@@ -7,7 +7,7 @@ with open("include/ImpresarioSerialization.h", "w") as outputFile:
     outputFile.write("\n")
 
     for header in headers:
-        outputFile.write(f"#include \"compiled/cpp/{header}\"\n")
+        outputFile.write(f"#include \"../compiled/cpp/{header}\"\n")
 
     outputFile.write("\n")
     outputFile.write("#endif //IMPRESARIO_SERIALIZATION_H\n")
