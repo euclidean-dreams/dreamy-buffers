@@ -7,7 +7,7 @@ table OnsetProcessorParameters {
     method:OnsetMethod;
     threshold:float32;
     peakPickingWindowSize:uint8;
-    peakPickingWindowTail:uint8;
+    peakPickingWindowTailMultiplier:uint8;
 }
 
 root_type OnsetProcessorParameters;

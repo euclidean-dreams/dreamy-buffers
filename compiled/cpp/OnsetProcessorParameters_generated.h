@@ -20,7 +20,7 @@ struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
     VT_METHOD = 4,
     VT_THRESHOLD = 6,
     VT_PEAKPICKINGWINDOWSIZE = 8,
-    VT_PEAKPICKINGWINDOWTAIL = 10
+    VT_PEAKPICKINGWINDOWTAILMULTIPLIER = 10
   };
   ImpresarioSerialization::OnsetMethod method() const {
     return static_cast<ImpresarioSerialization::OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
@@ -31,15 +31,15 @@ struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   uint8_t peakPickingWindowSize() const {
     return GetField<uint8_t>(VT_PEAKPICKINGWINDOWSIZE, 0);
   }
-  uint8_t peakPickingWindowTail() const {
-    return GetField<uint8_t>(VT_PEAKPICKINGWINDOWTAIL, 0);
+  uint8_t peakPickingWindowTailMultiplier() const {
+    return GetField<uint8_t>(VT_PEAKPICKINGWINDOWTAILMULTIPLIER, 0);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
            VerifyField<float>(verifier, VT_THRESHOLD) &&
            VerifyField<uint8_t>(verifier, VT_PEAKPICKINGWINDOWSIZE) &&
-           VerifyField<uint8_t>(verifier, VT_PEAKPICKINGWINDOWTAIL) &&
+           VerifyField<uint8_t>(verifier, VT_PEAKPICKINGWINDOWTAILMULTIPLIER) &&
            verifier.EndTable();
   }
 };
@@ -57,8 +57,8 @@ struct OnsetProcessorParametersBuilder {
   void add_peakPickingWindowSize(uint8_t peakPickingWindowSize) {
     fbb_.AddElement<uint8_t>(OnsetProcessorParameters::VT_PEAKPICKINGWINDOWSIZE, peakPickingWindowSize, 0);
   }
-  void add_peakPickingWindowTail(uint8_t peakPickingWindowTail) {
-    fbb_.AddElement<uint8_t>(OnsetProcessorParameters::VT_PEAKPICKINGWINDOWTAIL, peakPickingWindowTail, 0);
+  void add_peakPickingWindowTailMultiplier(uint8_t peakPickingWindowTailMultiplier) {
+    fbb_.AddElement<uint8_t>(OnsetProcessorParameters::VT_PEAKPICKINGWINDOWTAILMULTIPLIER, peakPickingWindowTailMultiplier, 0);
   }
   explicit OnsetProcessorParametersBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -77,10 +77,10 @@ inline flatbuffers::Offset<OnsetProcessorParameters> CreateOnsetProcessorParamet
     ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::specflux,
     float threshold = 0.0f,
     uint8_t peakPickingWindowSize = 0,
-    uint8_t peakPickingWindowTail = 0) {
+    uint8_t peakPickingWindowTailMultiplier = 0) {
   OnsetProcessorParametersBuilder builder_(_fbb);
   builder_.add_threshold(threshold);
-  builder_.add_peakPickingWindowTail(peakPickingWindowTail);
+  builder_.add_peakPickingWindowTailMultiplier(peakPickingWindowTailMultiplier);
   builder_.add_peakPickingWindowSize(peakPickingWindowSize);
   builder_.add_method(method);
   return builder_.Finish();
