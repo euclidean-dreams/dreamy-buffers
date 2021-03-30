@@ -5,7 +5,6 @@ namespace ImpresarioSerialization;
 
 table OnsetProcessorParameters {
     method:OnsetMethod;
-    frequencyBand:FrequencyBand;
     threshold:float32;
     peakPickingWindowSize:uint8;
     peakPickingWindowTail:uint8;

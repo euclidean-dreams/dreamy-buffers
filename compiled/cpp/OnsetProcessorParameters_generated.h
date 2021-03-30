@@ -18,16 +18,12 @@ struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   typedef OnsetProcessorParametersBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_METHOD = 4,
-    VT_FREQUENCYBAND = 6,
-    VT_THRESHOLD = 8,
-    VT_PEAKPICKINGWINDOWSIZE = 10,
-    VT_PEAKPICKINGWINDOWTAIL = 12
+    VT_THRESHOLD = 6,
+    VT_PEAKPICKINGWINDOWSIZE = 8,
+    VT_PEAKPICKINGWINDOWTAIL = 10
   };
   ImpresarioSerialization::OnsetMethod method() const {
     return static_cast<ImpresarioSerialization::OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
-  }
-  ImpresarioSerialization::FrequencyBand frequencyBand() const {
-    return static_cast<ImpresarioSerialization::FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
   }
   float threshold() const {
     return GetField<float>(VT_THRESHOLD, 0.0f);
@@ -41,7 +37,6 @@ struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int8_t>(verifier, VT_METHOD) &&
-           VerifyField<int8_t>(verifier, VT_FREQUENCYBAND) &&
            VerifyField<float>(verifier, VT_THRESHOLD) &&
            VerifyField<uint8_t>(verifier, VT_PEAKPICKINGWINDOWSIZE) &&
            VerifyField<uint8_t>(verifier, VT_PEAKPICKINGWINDOWTAIL) &&
@@ -55,9 +50,6 @@ struct OnsetProcessorParametersBuilder {
   flatbuffers::uoffset_t start_;
   void add_method(ImpresarioSerialization::OnsetMethod method) {
     fbb_.AddElement<int8_t>(OnsetProcessorParameters::VT_METHOD, static_cast<int8_t>(method), 0);
-  }
-  void add_frequencyBand(ImpresarioSerialization::FrequencyBand frequencyBand) {
-    fbb_.AddElement<int8_t>(OnsetProcessorParameters::VT_FREQUENCYBAND, static_cast<int8_t>(frequencyBand), 0);
   }
   void add_threshold(float threshold) {
     fbb_.AddElement<float>(OnsetProcessorParameters::VT_THRESHOLD, threshold, 0.0f);
@@ -83,7 +75,6 @@ struct OnsetProcessorParametersBuilder {
 inline flatbuffers::Offset<OnsetProcessorParameters> CreateOnsetProcessorParameters(
     flatbuffers::FlatBufferBuilder &_fbb,
     ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::specflux,
-    ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all,
     float threshold = 0.0f,
     uint8_t peakPickingWindowSize = 0,
     uint8_t peakPickingWindowTail = 0) {
@@ -91,7 +82,6 @@ inline flatbuffers::Offset<OnsetProcessorParameters> CreateOnsetProcessorParamet
   builder_.add_threshold(threshold);
   builder_.add_peakPickingWindowTail(peakPickingWindowTail);
   builder_.add_peakPickingWindowSize(peakPickingWindowSize);
-  builder_.add_frequencyBand(frequencyBand);
   builder_.add_method(method);
   return builder_.Finish();
 }

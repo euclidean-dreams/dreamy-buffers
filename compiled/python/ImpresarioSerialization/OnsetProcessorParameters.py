@@ -28,37 +28,29 @@ class OnsetProcessorParameters(object):
         return 0
 
     # OnsetProcessorParameters
-    def FrequencyBand(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Int8Flags, o + self._tab.Pos)
-        return 0
-
-    # OnsetProcessorParameters
     def Threshold(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
     # OnsetProcessorParameters
     def PeakPickingWindowSize(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
     # OnsetProcessorParameters
     def PeakPickingWindowTail(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
-def OnsetProcessorParametersStart(builder): builder.StartObject(5)
+def OnsetProcessorParametersStart(builder): builder.StartObject(4)
 def OnsetProcessorParametersAddMethod(builder, method): builder.PrependInt8Slot(0, method, 0)
-def OnsetProcessorParametersAddFrequencyBand(builder, frequencyBand): builder.PrependInt8Slot(1, frequencyBand, 0)
-def OnsetProcessorParametersAddThreshold(builder, threshold): builder.PrependFloat32Slot(2, threshold, 0.0)
-def OnsetProcessorParametersAddPeakPickingWindowSize(builder, peakPickingWindowSize): builder.PrependUint8Slot(3, peakPickingWindowSize, 0)
-def OnsetProcessorParametersAddPeakPickingWindowTail(builder, peakPickingWindowTail): builder.PrependUint8Slot(4, peakPickingWindowTail, 0)
+def OnsetProcessorParametersAddThreshold(builder, threshold): builder.PrependFloat32Slot(1, threshold, 0.0)
+def OnsetProcessorParametersAddPeakPickingWindowSize(builder, peakPickingWindowSize): builder.PrependUint8Slot(2, peakPickingWindowSize, 0)
+def OnsetProcessorParametersAddPeakPickingWindowTail(builder, peakPickingWindowTail): builder.PrependUint8Slot(3, peakPickingWindowTail, 0)
 def OnsetProcessorParametersEnd(builder): return builder.EndObject()
