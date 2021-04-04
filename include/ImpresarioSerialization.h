@@ -4,6 +4,7 @@
 #include "../compiled/cpp/PitchProcessorParameters_generated.h"
 #include "../compiled/cpp/OnsetProcessorParameters_generated.h"
 #include "../compiled/cpp/OnsetMethod_generated.h"
+#include "../compiled/cpp/STFT_generated.h"
 #include "../compiled/cpp/Onset_generated.h"
 #include "../compiled/cpp/FrequencyBand_generated.h"
 #include "../compiled/cpp/Pitch_generated.h"
