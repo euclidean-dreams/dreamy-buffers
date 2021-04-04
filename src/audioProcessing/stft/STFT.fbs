@@ -1,7 +1,7 @@
 namespace ImpresarioSerialization;
 
 table STFT {
-    sampleTimestamp:uint64;
+    originTimestamp:uint64;
     magnitudes:[float32];
 }
 

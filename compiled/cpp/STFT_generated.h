@@ -14,18 +14,18 @@ struct STFTBuilder;
 struct STFT FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef STFTBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_SAMPLETIMESTAMP = 4,
+    VT_ORIGINTIMESTAMP = 4,
     VT_MAGNITUDES = 6
   };
-  uint64_t sampleTimestamp() const {
-    return GetField<uint64_t>(VT_SAMPLETIMESTAMP, 0);
+  uint64_t originTimestamp() const {
+    return GetField<uint64_t>(VT_ORIGINTIMESTAMP, 0);
   }
   const flatbuffers::Vector<float> *magnitudes() const {
     return GetPointer<const flatbuffers::Vector<float> *>(VT_MAGNITUDES);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint64_t>(verifier, VT_SAMPLETIMESTAMP) &&
+           VerifyField<uint64_t>(verifier, VT_ORIGINTIMESTAMP) &&
            VerifyOffset(verifier, VT_MAGNITUDES) &&
            verifier.VerifyVector(magnitudes()) &&
            verifier.EndTable();
@@ -36,8 +36,8 @@ struct STFTBuilder {
   typedef STFT Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_sampleTimestamp(uint64_t sampleTimestamp) {
-    fbb_.AddElement<uint64_t>(STFT::VT_SAMPLETIMESTAMP, sampleTimestamp, 0);
+  void add_originTimestamp(uint64_t originTimestamp) {
+    fbb_.AddElement<uint64_t>(STFT::VT_ORIGINTIMESTAMP, originTimestamp, 0);
   }
   void add_magnitudes(flatbuffers::Offset<flatbuffers::Vector<float>> magnitudes) {
     fbb_.AddOffset(STFT::VT_MAGNITUDES, magnitudes);
@@ -56,22 +56,22 @@ struct STFTBuilder {
 
 inline flatbuffers::Offset<STFT> CreateSTFT(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint64_t sampleTimestamp = 0,
+    uint64_t originTimestamp = 0,
     flatbuffers::Offset<flatbuffers::Vector<float>> magnitudes = 0) {
   STFTBuilder builder_(_fbb);
-  builder_.add_sampleTimestamp(sampleTimestamp);
+  builder_.add_originTimestamp(originTimestamp);
   builder_.add_magnitudes(magnitudes);
   return builder_.Finish();
 }
 
 inline flatbuffers::Offset<STFT> CreateSTFTDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint64_t sampleTimestamp = 0,
+    uint64_t originTimestamp = 0,
     const std::vector<float> *magnitudes = nullptr) {
   auto magnitudes__ = magnitudes ? _fbb.CreateVector<float>(*magnitudes) : 0;
   return ImpresarioSerialization::CreateSTFT(
       _fbb,
-      sampleTimestamp,
+      originTimestamp,
       magnitudes__);
 }
 

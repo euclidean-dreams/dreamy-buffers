@@ -21,7 +21,7 @@ class Onset(object):
         self._tab = flatbuffers.table.Table(buf, pos)
 
     # Onset
-    def SampleTimestamp(self):
+    def OriginTimestamp(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint64Flags, o + self._tab.Pos)
@@ -56,7 +56,7 @@ class Onset(object):
         return 0.0
 
 def OnsetStart(builder): builder.StartObject(5)
-def OnsetAddSampleTimestamp(builder, sampleTimestamp): builder.PrependUint64Slot(0, sampleTimestamp, 0)
+def OnsetAddOriginTimestamp(builder, originTimestamp): builder.PrependUint64Slot(0, originTimestamp, 0)
 def OnsetAddFrequencyBand(builder, frequencyBand): builder.PrependInt8Slot(1, frequencyBand, 0)
 def OnsetAddMethod(builder, method): builder.PrependInt8Slot(2, method, 0)
 def OnsetAddTimestamp(builder, timestamp): builder.PrependUint64Slot(3, timestamp, 0)

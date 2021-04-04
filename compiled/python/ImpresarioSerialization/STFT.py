@@ -21,7 +21,7 @@ class STFT(object):
         self._tab = flatbuffers.table.Table(buf, pos)
 
     # STFT
-    def SampleTimestamp(self):
+    def OriginTimestamp(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint64Flags, o + self._tab.Pos)
@@ -55,7 +55,7 @@ class STFT(object):
         return o == 0
 
 def STFTStart(builder): builder.StartObject(2)
-def STFTAddSampleTimestamp(builder, sampleTimestamp): builder.PrependUint64Slot(0, sampleTimestamp, 0)
+def STFTAddOriginTimestamp(builder, originTimestamp): builder.PrependUint64Slot(0, originTimestamp, 0)
 def STFTAddMagnitudes(builder, magnitudes): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(magnitudes), 0)
 def STFTStartMagnitudesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def STFTEnd(builder): return builder.EndObject()

@@ -21,7 +21,7 @@ class Pitch(object):
         self._tab = flatbuffers.table.Table(buf, pos)
 
     # Pitch
-    def SampleTimestamp(self):
+    def OriginTimestamp(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint64Flags, o + self._tab.Pos)
@@ -56,7 +56,7 @@ class Pitch(object):
         return 0.0
 
 def PitchStart(builder): builder.StartObject(5)
-def PitchAddSampleTimestamp(builder, sampleTimestamp): builder.PrependUint64Slot(0, sampleTimestamp, 0)
+def PitchAddOriginTimestamp(builder, originTimestamp): builder.PrependUint64Slot(0, originTimestamp, 0)
 def PitchAddFrequencyBand(builder, frequencyBand): builder.PrependInt8Slot(1, frequencyBand, 0)
 def PitchAddMethod(builder, method): builder.PrependInt8Slot(2, method, 0)
 def PitchAddPitch(builder, pitch): builder.PrependUint8Slot(3, pitch, 0)

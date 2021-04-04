@@ -4,7 +4,7 @@ include "audioProcessing/FrequencyBand.fbs";
 namespace ImpresarioSerialization;
 
 table Onset {
-    sampleTimestamp:uint64;
+    originTimestamp:uint64;
     frequencyBand:FrequencyBand;
     method:OnsetMethod;
     timestamp:uint64;
