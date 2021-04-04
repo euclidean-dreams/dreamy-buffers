@@ -7,4 +7,5 @@ class Identifier(object):
     onsetProcessorParameters = 1
     pitch = 2
     pitchProcessorParameters = 3
+    stft = 4
 

@@ -4,7 +4,8 @@ enum Identifier:byte {
     onset,
     onsetProcessorParameters,
     pitch,
-    pitchProcessorParameters
+    pitchProcessorParameters,
+    stft,
 }
 
 table IdentifierWrapper {
