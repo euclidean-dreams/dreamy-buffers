@@ -1,0 +1,8 @@
+namespace ImpresarioSerialization;
+
+table SpectralFlux {
+    originTimestamp:uint64;
+    spectralFluxes:[float32];
+}
+
+root_type SpectralFlux;
