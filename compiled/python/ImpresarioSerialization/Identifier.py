@@ -8,4 +8,6 @@ class Identifier(object):
     pitch = 2
     pitchProcessorParameters = 3
     stft = 4
+    spectralFlux = 5
+    peaks = 6
 

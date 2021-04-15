@@ -6,6 +6,8 @@ enum Identifier:byte {
     pitch,
     pitchProcessorParameters,
     stft,
+    spectralFlux,
+    peaks
 }
 
 table IdentifierWrapper {
