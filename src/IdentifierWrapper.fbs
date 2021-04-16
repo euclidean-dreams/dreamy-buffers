@@ -5,9 +5,7 @@ enum Identifier:byte {
     onsetProcessorParameters,
     pitch,
     pitchProcessorParameters,
-    stft,
-    spectralFlux,
-    peaks
+    spectrogram,
 }
 
 table IdentifierWrapper {

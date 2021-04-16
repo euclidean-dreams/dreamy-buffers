@@ -1,8 +1,10 @@
 namespace ImpresarioSerialization;
 
-table SpectralFlux {
+table Spectrogram {
     originTimestamp:uint64;
+    magnitudes:[float32];
     spectralFluxes:[float32];
+    peaks:[float32];
 }
 
-root_type SpectralFlux;
+root_type Spectrogram;

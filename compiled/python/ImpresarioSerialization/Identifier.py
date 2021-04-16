@@ -7,7 +7,5 @@ class Identifier(object):
     onsetProcessorParameters = 1
     pitch = 2
     pitchProcessorParameters = 3
-    stft = 4
-    spectralFlux = 5
-    peaks = 6
+    spectrogram = 4
 

@@ -1,8 +1,0 @@
-namespace ImpresarioSerialization;
-
-table STFT {
-    originTimestamp:uint64;
-    magnitudes:[float32];
-}
-
-root_type STFT;

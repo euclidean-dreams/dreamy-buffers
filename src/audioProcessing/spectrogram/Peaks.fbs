@@ -1,8 +1,0 @@
-namespace ImpresarioSerialization;
-
-table Peaks {
-    originTimestamp:uint64;
-    peaks:[float32];
-}
-
-root_type Peaks;
