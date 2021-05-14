@@ -10,5 +10,6 @@
 #include "../compiled/cpp/Pitch_generated.h"
 #include "../compiled/cpp/IdentifierWrapper_generated.h"
 #include "../compiled/cpp/PitchMethod_generated.h"
+#include "../compiled/cpp/DisplaySignal_generated.h"
 
 #endif //IMPRESARIO_SERIALIZATION_H
