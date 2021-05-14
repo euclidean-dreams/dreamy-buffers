@@ -17,35 +17,38 @@ enum class Identifier : int8_t {
   pitch = 2,
   pitchProcessorParameters = 3,
   spectrogram = 4,
+  displaySignal = 5,
   MIN = onset,
-  MAX = spectrogram
+  MAX = displaySignal
 };
 
-inline const Identifier (&EnumValuesIdentifier())[5] {
+inline const Identifier (&EnumValuesIdentifier())[6] {
   static const Identifier values[] = {
     Identifier::onset,
     Identifier::onsetProcessorParameters,
     Identifier::pitch,
     Identifier::pitchProcessorParameters,
-    Identifier::spectrogram
+    Identifier::spectrogram,
+    Identifier::displaySignal
   };
   return values;
 }
 
 inline const char * const *EnumNamesIdentifier() {
-  static const char * const names[6] = {
+  static const char * const names[7] = {
     "onset",
     "onsetProcessorParameters",
     "pitch",
     "pitchProcessorParameters",
     "spectrogram",
+    "displaySignal",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameIdentifier(Identifier e) {
-  if (flatbuffers::IsOutRange(e, Identifier::onset, Identifier::spectrogram)) return "";
+  if (flatbuffers::IsOutRange(e, Identifier::onset, Identifier::displaySignal)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesIdentifier()[index];
 }

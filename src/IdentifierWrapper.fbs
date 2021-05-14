@@ -6,6 +6,7 @@ enum Identifier:byte {
     pitch,
     pitchProcessorParameters,
     spectrogram,
+    displaySignal,
 }
 
 table IdentifierWrapper {
