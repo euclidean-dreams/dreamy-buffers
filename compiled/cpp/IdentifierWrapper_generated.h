@@ -79,7 +79,6 @@ struct IdentifierWrapperBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  IdentifierWrapperBuilder &operator=(const IdentifierWrapperBuilder &);
   flatbuffers::Offset<IdentifierWrapper> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<IdentifierWrapper>(end);

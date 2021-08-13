@@ -55,7 +55,6 @@ struct PitchProcessorParametersBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  PitchProcessorParametersBuilder &operator=(const PitchProcessorParametersBuilder &);
   flatbuffers::Offset<PitchProcessorParameters> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<PitchProcessorParameters>(end);

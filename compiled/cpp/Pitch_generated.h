@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "FrequencyBand_generated.h"
 #include "PitchMethod_generated.h"
+#include "FrequencyBand_generated.h"
 
 namespace ImpresarioSerialization {
 
@@ -72,7 +72,6 @@ struct PitchBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  PitchBuilder &operator=(const PitchBuilder &);
   flatbuffers::Offset<Pitch> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Pitch>(end);

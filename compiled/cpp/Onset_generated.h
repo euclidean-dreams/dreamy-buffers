@@ -72,7 +72,6 @@ struct OnsetBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  OnsetBuilder &operator=(const OnsetBuilder &);
   flatbuffers::Offset<Onset> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Onset>(end);

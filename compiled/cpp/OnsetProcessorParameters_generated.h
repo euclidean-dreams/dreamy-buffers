@@ -64,7 +64,6 @@ struct OnsetProcessorParametersBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  OnsetProcessorParametersBuilder &operator=(const OnsetProcessorParametersBuilder &);
   flatbuffers::Offset<OnsetProcessorParameters> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<OnsetProcessorParameters>(end);

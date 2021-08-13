@@ -82,7 +82,6 @@ struct SpectrogramBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  SpectrogramBuilder &operator=(const SpectrogramBuilder &);
   flatbuffers::Offset<Spectrogram> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Spectrogram>(end);

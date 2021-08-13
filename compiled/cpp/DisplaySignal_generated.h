@@ -46,7 +46,6 @@ struct DisplaySignalBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  DisplaySignalBuilder &operator=(const DisplaySignalBuilder &);
   flatbuffers::Offset<DisplaySignal> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<DisplaySignal>(end);

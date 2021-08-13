@@ -10,12 +10,16 @@ class OnsetProcessorParameters(object):
     __slots__ = ['_tab']
 
     @classmethod
-    def GetRootAsOnsetProcessorParameters(cls, buf, offset):
+    def GetRootAs(cls, buf, offset=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
         x = OnsetProcessorParameters()
         x.Init(buf, n + offset)
         return x
 
+    @classmethod
+    def GetRootAsOnsetProcessorParameters(cls, buf, offset=0):
+        """This method is deprecated. Please switch to GetRootAs."""
+        return cls.GetRootAs(buf, offset)
     # OnsetProcessorParameters
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
@@ -48,9 +52,27 @@ class OnsetProcessorParameters(object):
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
-def OnsetProcessorParametersStart(builder): builder.StartObject(4)
-def OnsetProcessorParametersAddMethod(builder, method): builder.PrependInt8Slot(0, method, 0)
-def OnsetProcessorParametersAddThreshold(builder, threshold): builder.PrependFloat32Slot(1, threshold, 0.0)
-def OnsetProcessorParametersAddPeakPickingWindowSize(builder, peakPickingWindowSize): builder.PrependUint8Slot(2, peakPickingWindowSize, 0)
-def OnsetProcessorParametersAddPeakPickingWindowTailMultiplier(builder, peakPickingWindowTailMultiplier): builder.PrependUint8Slot(3, peakPickingWindowTailMultiplier, 0)
-def OnsetProcessorParametersEnd(builder): return builder.EndObject()
+def Start(builder): builder.StartObject(4)
+def OnsetProcessorParametersStart(builder):
+    """This method is deprecated. Please switch to Start."""
+    return Start(builder)
+def AddMethod(builder, method): builder.PrependInt8Slot(0, method, 0)
+def OnsetProcessorParametersAddMethod(builder, method):
+    """This method is deprecated. Please switch to AddMethod."""
+    return AddMethod(builder, method)
+def AddThreshold(builder, threshold): builder.PrependFloat32Slot(1, threshold, 0.0)
+def OnsetProcessorParametersAddThreshold(builder, threshold):
+    """This method is deprecated. Please switch to AddThreshold."""
+    return AddThreshold(builder, threshold)
+def AddPeakPickingWindowSize(builder, peakPickingWindowSize): builder.PrependUint8Slot(2, peakPickingWindowSize, 0)
+def OnsetProcessorParametersAddPeakPickingWindowSize(builder, peakPickingWindowSize):
+    """This method is deprecated. Please switch to AddPeakPickingWindowSize."""
+    return AddPeakPickingWindowSize(builder, peakPickingWindowSize)
+def AddPeakPickingWindowTailMultiplier(builder, peakPickingWindowTailMultiplier): builder.PrependUint8Slot(3, peakPickingWindowTailMultiplier, 0)
+def OnsetProcessorParametersAddPeakPickingWindowTailMultiplier(builder, peakPickingWindowTailMultiplier):
+    """This method is deprecated. Please switch to AddPeakPickingWindowTailMultiplier."""
+    return AddPeakPickingWindowTailMultiplier(builder, peakPickingWindowTailMultiplier)
+def End(builder): return builder.EndObject()
+def OnsetProcessorParametersEnd(builder):
+    """This method is deprecated. Please switch to End."""
+    return End(builder)

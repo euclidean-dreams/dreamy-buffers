@@ -1,0 +1,8 @@
+namespace ImpresarioSerialization;
+
+table Parameter {
+    field:uint64;
+    value:float32;
+}
+
+root_type Parameter;

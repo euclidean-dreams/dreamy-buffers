@@ -10,12 +10,16 @@ class Onset(object):
     __slots__ = ['_tab']
 
     @classmethod
-    def GetRootAsOnset(cls, buf, offset):
+    def GetRootAs(cls, buf, offset=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
         x = Onset()
         x.Init(buf, n + offset)
         return x
 
+    @classmethod
+    def GetRootAsOnset(cls, buf, offset=0):
+        """This method is deprecated. Please switch to GetRootAs."""
+        return cls.GetRootAs(buf, offset)
     # Onset
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
@@ -55,10 +59,31 @@ class Onset(object):
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
-def OnsetStart(builder): builder.StartObject(5)
-def OnsetAddOriginTimestamp(builder, originTimestamp): builder.PrependUint64Slot(0, originTimestamp, 0)
-def OnsetAddFrequencyBand(builder, frequencyBand): builder.PrependInt8Slot(1, frequencyBand, 0)
-def OnsetAddMethod(builder, method): builder.PrependInt8Slot(2, method, 0)
-def OnsetAddTimestamp(builder, timestamp): builder.PrependUint64Slot(3, timestamp, 0)
-def OnsetAddConfidence(builder, confidence): builder.PrependFloat32Slot(4, confidence, 0.0)
-def OnsetEnd(builder): return builder.EndObject()
+def Start(builder): builder.StartObject(5)
+def OnsetStart(builder):
+    """This method is deprecated. Please switch to Start."""
+    return Start(builder)
+def AddOriginTimestamp(builder, originTimestamp): builder.PrependUint64Slot(0, originTimestamp, 0)
+def OnsetAddOriginTimestamp(builder, originTimestamp):
+    """This method is deprecated. Please switch to AddOriginTimestamp."""
+    return AddOriginTimestamp(builder, originTimestamp)
+def AddFrequencyBand(builder, frequencyBand): builder.PrependInt8Slot(1, frequencyBand, 0)
+def OnsetAddFrequencyBand(builder, frequencyBand):
+    """This method is deprecated. Please switch to AddFrequencyBand."""
+    return AddFrequencyBand(builder, frequencyBand)
+def AddMethod(builder, method): builder.PrependInt8Slot(2, method, 0)
+def OnsetAddMethod(builder, method):
+    """This method is deprecated. Please switch to AddMethod."""
+    return AddMethod(builder, method)
+def AddTimestamp(builder, timestamp): builder.PrependUint64Slot(3, timestamp, 0)
+def OnsetAddTimestamp(builder, timestamp):
+    """This method is deprecated. Please switch to AddTimestamp."""
+    return AddTimestamp(builder, timestamp)
+def AddConfidence(builder, confidence): builder.PrependFloat32Slot(4, confidence, 0.0)
+def OnsetAddConfidence(builder, confidence):
+    """This method is deprecated. Please switch to AddConfidence."""
+    return AddConfidence(builder, confidence)
+def End(builder): return builder.EndObject()
+def OnsetEnd(builder):
+    """This method is deprecated. Please switch to End."""
+    return End(builder)
