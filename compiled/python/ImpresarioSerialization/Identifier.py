@@ -9,4 +9,5 @@ class Identifier(object):
     pitchProcessorParameters = 3
     spectrogram = 4
     displaySignal = 5
+    parameter = 6
 
