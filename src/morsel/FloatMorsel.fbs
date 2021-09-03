@@ -1,8 +1,8 @@
 namespace ImpresarioSerialization;
 
-table Parameter {
+table Morsel {
     field:uint64;
     value:float32;
 }
 
-root_type Parameter;
+root_type Morsel;

@@ -1,7 +1,9 @@
 #ifndef IMPRESARIO_SERIALIZATION_H
 #define IMPRESARIO_SERIALIZATION_H
 
+#include "../compiled/cpp/FloatArrayMorsel_generated.h"
 #include "../compiled/cpp/Pitch_generated.h"
+#include "../compiled/cpp/FloatMorsel_generated.h"
 #include "../compiled/cpp/PitchMethod_generated.h"
 #include "../compiled/cpp/FrequencyBand_generated.h"
 #include "../compiled/cpp/OnsetProcessorParameters_generated.h"
