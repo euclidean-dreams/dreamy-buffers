@@ -8,11 +8,11 @@
 
 namespace ImpresarioSerialization {
 
-struct Morsel;
-struct MorselBuilder;
+struct FloatMorsel;
+struct FloatMorselBuilder;
 
-struct Morsel FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef MorselBuilder Builder;
+struct FloatMorsel FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef FloatMorselBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FIELD = 4,
     VT_VALUE = 6
@@ -31,64 +31,64 @@ struct Morsel FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
 };
 
-struct MorselBuilder {
-  typedef Morsel Table;
+struct FloatMorselBuilder {
+  typedef FloatMorsel Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_field(uint64_t field) {
-    fbb_.AddElement<uint64_t>(Morsel::VT_FIELD, field, 0);
+    fbb_.AddElement<uint64_t>(FloatMorsel::VT_FIELD, field, 0);
   }
   void add_value(float value) {
-    fbb_.AddElement<float>(Morsel::VT_VALUE, value, 0.0f);
+    fbb_.AddElement<float>(FloatMorsel::VT_VALUE, value, 0.0f);
   }
-  explicit MorselBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit FloatMorselBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Morsel> Finish() {
+  flatbuffers::Offset<FloatMorsel> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Morsel>(end);
+    auto o = flatbuffers::Offset<FloatMorsel>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Morsel> CreateMorsel(
+inline flatbuffers::Offset<FloatMorsel> CreateFloatMorsel(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint64_t field = 0,
     float value = 0.0f) {
-  MorselBuilder builder_(_fbb);
+  FloatMorselBuilder builder_(_fbb);
   builder_.add_field(field);
   builder_.add_value(value);
   return builder_.Finish();
 }
 
-inline const ImpresarioSerialization::Morsel *GetMorsel(const void *buf) {
-  return flatbuffers::GetRoot<ImpresarioSerialization::Morsel>(buf);
+inline const ImpresarioSerialization::FloatMorsel *GetFloatMorsel(const void *buf) {
+  return flatbuffers::GetRoot<ImpresarioSerialization::FloatMorsel>(buf);
 }
 
-inline const ImpresarioSerialization::Morsel *GetSizePrefixedMorsel(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<ImpresarioSerialization::Morsel>(buf);
+inline const ImpresarioSerialization::FloatMorsel *GetSizePrefixedFloatMorsel(const void *buf) {
+  return flatbuffers::GetSizePrefixedRoot<ImpresarioSerialization::FloatMorsel>(buf);
 }
 
-inline bool VerifyMorselBuffer(
+inline bool VerifyFloatMorselBuffer(
     flatbuffers::Verifier &verifier) {
-  return verifier.VerifyBuffer<ImpresarioSerialization::Morsel>(nullptr);
+  return verifier.VerifyBuffer<ImpresarioSerialization::FloatMorsel>(nullptr);
 }
 
-inline bool VerifySizePrefixedMorselBuffer(
+inline bool VerifySizePrefixedFloatMorselBuffer(
     flatbuffers::Verifier &verifier) {
-  return verifier.VerifySizePrefixedBuffer<ImpresarioSerialization::Morsel>(nullptr);
+  return verifier.VerifySizePrefixedBuffer<ImpresarioSerialization::FloatMorsel>(nullptr);
 }
 
-inline void FinishMorselBuffer(
+inline void FinishFloatMorselBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<ImpresarioSerialization::Morsel> root) {
+    flatbuffers::Offset<ImpresarioSerialization::FloatMorsel> root) {
   fbb.Finish(root);
 }
 
-inline void FinishSizePrefixedMorselBuffer(
+inline void FinishSizePrefixedFloatMorselBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<ImpresarioSerialization::Morsel> root) {
+    flatbuffers::Offset<ImpresarioSerialization::FloatMorsel> root) {
   fbb.FinishSizePrefixed(root);
 }
 

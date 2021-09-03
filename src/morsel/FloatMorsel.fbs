@@ -1,8 +1,8 @@
 namespace ImpresarioSerialization;
 
-table Morsel {
+table FloatMorsel {
     field:uint64;
     value:float32;
 }
 
-root_type Morsel;
+root_type FloatMorsel;
