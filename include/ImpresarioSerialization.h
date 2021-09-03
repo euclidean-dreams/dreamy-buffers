@@ -12,7 +12,6 @@
 #include "../compiled/cpp/Spectrogram_generated.h"
 #include "../compiled/cpp/PitchProcessorParameters_generated.h"
 #include "../compiled/cpp/Onset_generated.h"
-#include "../compiled/cpp/Parameter_generated.h"
 #include "../compiled/cpp/OnsetMethod_generated.h"
 
 #endif //IMPRESARIO_SERIALIZATION_H
