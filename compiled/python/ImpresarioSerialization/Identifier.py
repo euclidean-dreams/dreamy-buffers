@@ -11,4 +11,5 @@ class Identifier(object):
     displaySignal = 5
     floatMorsel = 6
     floatArrayMorsel = 7
+    luminary = 8
 

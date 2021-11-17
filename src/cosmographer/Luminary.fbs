@@ -1,0 +1,8 @@
+namespace ImpresarioSerialization;
+
+table Luminary {
+    timestamp:uint64;
+    samples:[int8];
+}
+
+root_type Luminary;

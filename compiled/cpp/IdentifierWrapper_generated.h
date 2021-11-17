@@ -20,11 +20,12 @@ enum class Identifier : int8_t {
   displaySignal = 5,
   floatMorsel = 6,
   floatArrayMorsel = 7,
+  luminary = 8,
   MIN = onset,
-  MAX = floatArrayMorsel
+  MAX = luminary
 };
 
-inline const Identifier (&EnumValuesIdentifier())[8] {
+inline const Identifier (&EnumValuesIdentifier())[9] {
   static const Identifier values[] = {
     Identifier::onset,
     Identifier::onsetProcessorParameters,
@@ -33,13 +34,14 @@ inline const Identifier (&EnumValuesIdentifier())[8] {
     Identifier::spectrogram,
     Identifier::displaySignal,
     Identifier::floatMorsel,
-    Identifier::floatArrayMorsel
+    Identifier::floatArrayMorsel,
+    Identifier::luminary
   };
   return values;
 }
 
 inline const char * const *EnumNamesIdentifier() {
-  static const char * const names[9] = {
+  static const char * const names[10] = {
     "onset",
     "onsetProcessorParameters",
     "pitch",
@@ -48,13 +50,14 @@ inline const char * const *EnumNamesIdentifier() {
     "displaySignal",
     "floatMorsel",
     "floatArrayMorsel",
+    "luminary",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameIdentifier(Identifier e) {
-  if (flatbuffers::IsOutRange(e, Identifier::onset, Identifier::floatArrayMorsel)) return "";
+  if (flatbuffers::IsOutRange(e, Identifier::onset, Identifier::luminary)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesIdentifier()[index];
 }

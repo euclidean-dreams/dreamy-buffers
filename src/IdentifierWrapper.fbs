@@ -9,6 +9,7 @@ enum Identifier:byte {
     displaySignal,
     floatMorsel,
     floatArrayMorsel,
+    luminary
 }
 
 table IdentifierWrapper {
