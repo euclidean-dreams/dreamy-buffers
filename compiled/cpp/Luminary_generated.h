@@ -20,8 +20,8 @@ struct Luminary FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint64_t timestamp() const {
     return GetField<uint64_t>(VT_TIMESTAMP, 0);
   }
-  const flatbuffers::Vector<int8_t> *glimpse() const {
-    return GetPointer<const flatbuffers::Vector<int8_t> *>(VT_GLIMPSE);
+  const flatbuffers::Vector<uint8_t> *glimpse() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_GLIMPSE);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -39,7 +39,7 @@ struct LuminaryBuilder {
   void add_timestamp(uint64_t timestamp) {
     fbb_.AddElement<uint64_t>(Luminary::VT_TIMESTAMP, timestamp, 0);
   }
-  void add_glimpse(flatbuffers::Offset<flatbuffers::Vector<int8_t>> glimpse) {
+  void add_glimpse(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> glimpse) {
     fbb_.AddOffset(Luminary::VT_GLIMPSE, glimpse);
   }
   explicit LuminaryBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -56,7 +56,7 @@ struct LuminaryBuilder {
 inline flatbuffers::Offset<Luminary> CreateLuminary(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint64_t timestamp = 0,
-    flatbuffers::Offset<flatbuffers::Vector<int8_t>> glimpse = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> glimpse = 0) {
   LuminaryBuilder builder_(_fbb);
   builder_.add_timestamp(timestamp);
   builder_.add_glimpse(glimpse);
@@ -66,8 +66,8 @@ inline flatbuffers::Offset<Luminary> CreateLuminary(
 inline flatbuffers::Offset<Luminary> CreateLuminaryDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint64_t timestamp = 0,
-    const std::vector<int8_t> *glimpse = nullptr) {
-  auto glimpse__ = glimpse ? _fbb.CreateVector<int8_t>(*glimpse) : 0;
+    const std::vector<uint8_t> *glimpse = nullptr) {
+  auto glimpse__ = glimpse ? _fbb.CreateVector<uint8_t>(*glimpse) : 0;
   return ImpresarioSerialization::CreateLuminary(
       _fbb,
       timestamp,
