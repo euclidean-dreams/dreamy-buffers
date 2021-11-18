@@ -32,7 +32,7 @@ class Luminary(object):
         return 0
 
     # Luminary
-    def Samples(self, j):
+    def Glimpse(self, j):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             a = self._tab.Vector(o)
@@ -40,21 +40,21 @@ class Luminary(object):
         return 0
 
     # Luminary
-    def SamplesAsNumpy(self):
+    def GlimpseAsNumpy(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Int8Flags, o)
         return 0
 
     # Luminary
-    def SamplesLength(self):
+    def GlimpseLength(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
     # Luminary
-    def SamplesIsNone(self):
+    def GlimpseIsNone(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         return o == 0
 
@@ -66,14 +66,14 @@ def AddTimestamp(builder, timestamp): builder.PrependUint64Slot(0, timestamp, 0)
 def LuminaryAddTimestamp(builder, timestamp):
     """This method is deprecated. Please switch to AddTimestamp."""
     return AddTimestamp(builder, timestamp)
-def AddSamples(builder, samples): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(samples), 0)
-def LuminaryAddSamples(builder, samples):
-    """This method is deprecated. Please switch to AddSamples."""
-    return AddSamples(builder, samples)
-def StartSamplesVector(builder, numElems): return builder.StartVector(1, numElems, 1)
-def LuminaryStartSamplesVector(builder, numElems):
+def AddGlimpse(builder, glimpse): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(glimpse), 0)
+def LuminaryAddGlimpse(builder, glimpse):
+    """This method is deprecated. Please switch to AddGlimpse."""
+    return AddGlimpse(builder, glimpse)
+def StartGlimpseVector(builder, numElems): return builder.StartVector(1, numElems, 1)
+def LuminaryStartGlimpseVector(builder, numElems):
     """This method is deprecated. Please switch to Start."""
-    return StartSamplesVector(builder, numElems)
+    return StartGlimpseVector(builder, numElems)
 def End(builder): return builder.EndObject()
 def LuminaryEnd(builder):
     """This method is deprecated. Please switch to End."""

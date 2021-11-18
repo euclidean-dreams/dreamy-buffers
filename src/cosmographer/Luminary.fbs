@@ -2,7 +2,7 @@ namespace ImpresarioSerialization;
 
 table Luminary {
     timestamp:uint64;
-    samples:[int8];
+    glimpse:[int8];
 }
 
 root_type Luminary;
