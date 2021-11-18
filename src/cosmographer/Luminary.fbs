@@ -1,7 +1,6 @@
 namespace ImpresarioSerialization;
 
 table Luminary {
-    timestamp:uint64;
     glimpse:[uint8];
 }
 
