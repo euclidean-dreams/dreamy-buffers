@@ -3,23 +3,17 @@
 # namespace: ImpresarioSerialization
 
 import flatbuffers
-from flatbuffers.compat import import_numpy
-np = import_numpy()
 
 class DisplaySignal(object):
     __slots__ = ['_tab']
 
     @classmethod
-    def GetRootAs(cls, buf, offset=0):
+    def GetRootAsDisplaySignal(cls, buf, offset):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
         x = DisplaySignal()
         x.Init(buf, n + offset)
         return x
 
-    @classmethod
-    def GetRootAsDisplaySignal(cls, buf, offset=0):
-        """This method is deprecated. Please switch to GetRootAs."""
-        return cls.GetRootAs(buf, offset)
     # DisplaySignal
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
@@ -53,28 +47,8 @@ class DisplaySignal(object):
             return self._tab.VectorLen(o)
         return 0
 
-    # DisplaySignal
-    def SamplesIsNone(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
-        return o == 0
-
-def Start(builder): builder.StartObject(2)
-def DisplaySignalStart(builder):
-    """This method is deprecated. Please switch to Start."""
-    return Start(builder)
-def AddOriginTimestamp(builder, originTimestamp): builder.PrependUint64Slot(0, originTimestamp, 0)
-def DisplaySignalAddOriginTimestamp(builder, originTimestamp):
-    """This method is deprecated. Please switch to AddOriginTimestamp."""
-    return AddOriginTimestamp(builder, originTimestamp)
-def AddSamples(builder, samples): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(samples), 0)
-def DisplaySignalAddSamples(builder, samples):
-    """This method is deprecated. Please switch to AddSamples."""
-    return AddSamples(builder, samples)
-def StartSamplesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
-def DisplaySignalStartSamplesVector(builder, numElems):
-    """This method is deprecated. Please switch to Start."""
-    return StartSamplesVector(builder, numElems)
-def End(builder): return builder.EndObject()
-def DisplaySignalEnd(builder):
-    """This method is deprecated. Please switch to End."""
-    return End(builder)
+def DisplaySignalStart(builder): builder.StartObject(2)
+def DisplaySignalAddOriginTimestamp(builder, originTimestamp): builder.PrependUint64Slot(0, originTimestamp, 0)
+def DisplaySignalAddSamples(builder, samples): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(samples), 0)
+def DisplaySignalStartSamplesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
+def DisplaySignalEnd(builder): return builder.EndObject()

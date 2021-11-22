@@ -9,10 +9,8 @@
 namespace ImpresarioSerialization {
 
 struct FloatMorsel;
-struct FloatMorselBuilder;
 
 struct FloatMorsel FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef FloatMorselBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FIELD = 4,
     VT_VALUE = 6
@@ -32,7 +30,6 @@ struct FloatMorsel FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct FloatMorselBuilder {
-  typedef FloatMorsel Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_field(uint64_t field) {
@@ -45,6 +42,7 @@ struct FloatMorselBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
+  FloatMorselBuilder &operator=(const FloatMorselBuilder &);
   flatbuffers::Offset<FloatMorsel> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<FloatMorsel>(end);

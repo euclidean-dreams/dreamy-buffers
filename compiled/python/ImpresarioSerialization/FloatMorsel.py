@@ -3,23 +3,17 @@
 # namespace: ImpresarioSerialization
 
 import flatbuffers
-from flatbuffers.compat import import_numpy
-np = import_numpy()
 
 class FloatMorsel(object):
     __slots__ = ['_tab']
 
     @classmethod
-    def GetRootAs(cls, buf, offset=0):
+    def GetRootAsFloatMorsel(cls, buf, offset):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
         x = FloatMorsel()
         x.Init(buf, n + offset)
         return x
 
-    @classmethod
-    def GetRootAsFloatMorsel(cls, buf, offset=0):
-        """This method is deprecated. Please switch to GetRootAs."""
-        return cls.GetRootAs(buf, offset)
     # FloatMorsel
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
@@ -38,19 +32,7 @@ class FloatMorsel(object):
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
-def Start(builder): builder.StartObject(2)
-def FloatMorselStart(builder):
-    """This method is deprecated. Please switch to Start."""
-    return Start(builder)
-def AddField(builder, field): builder.PrependUint64Slot(0, field, 0)
-def FloatMorselAddField(builder, field):
-    """This method is deprecated. Please switch to AddField."""
-    return AddField(builder, field)
-def AddValue(builder, value): builder.PrependFloat32Slot(1, value, 0.0)
-def FloatMorselAddValue(builder, value):
-    """This method is deprecated. Please switch to AddValue."""
-    return AddValue(builder, value)
-def End(builder): return builder.EndObject()
-def FloatMorselEnd(builder):
-    """This method is deprecated. Please switch to End."""
-    return End(builder)
+def FloatMorselStart(builder): builder.StartObject(2)
+def FloatMorselAddField(builder, field): builder.PrependUint64Slot(0, field, 0)
+def FloatMorselAddValue(builder, value): builder.PrependFloat32Slot(1, value, 0.0)
+def FloatMorselEnd(builder): return builder.EndObject()

@@ -6,16 +6,14 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "PitchMethod_generated.h"
 #include "FrequencyBand_generated.h"
+#include "PitchMethod_generated.h"
 
 namespace ImpresarioSerialization {
 
 struct Pitch;
-struct PitchBuilder;
 
 struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef PitchBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ORIGINTIMESTAMP = 4,
     VT_FREQUENCYBAND = 6,
@@ -26,11 +24,11 @@ struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint64_t originTimestamp() const {
     return GetField<uint64_t>(VT_ORIGINTIMESTAMP, 0);
   }
-  ImpresarioSerialization::FrequencyBand frequencyBand() const {
-    return static_cast<ImpresarioSerialization::FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
+  FrequencyBand frequencyBand() const {
+    return static_cast<FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
   }
-  ImpresarioSerialization::PitchMethod method() const {
-    return static_cast<ImpresarioSerialization::PitchMethod>(GetField<int8_t>(VT_METHOD, 0));
+  PitchMethod method() const {
+    return static_cast<PitchMethod>(GetField<int8_t>(VT_METHOD, 0));
   }
   uint8_t pitch() const {
     return GetField<uint8_t>(VT_PITCH, 0);
@@ -50,16 +48,15 @@ struct Pitch FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct PitchBuilder {
-  typedef Pitch Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_originTimestamp(uint64_t originTimestamp) {
     fbb_.AddElement<uint64_t>(Pitch::VT_ORIGINTIMESTAMP, originTimestamp, 0);
   }
-  void add_frequencyBand(ImpresarioSerialization::FrequencyBand frequencyBand) {
+  void add_frequencyBand(FrequencyBand frequencyBand) {
     fbb_.AddElement<int8_t>(Pitch::VT_FREQUENCYBAND, static_cast<int8_t>(frequencyBand), 0);
   }
-  void add_method(ImpresarioSerialization::PitchMethod method) {
+  void add_method(PitchMethod method) {
     fbb_.AddElement<int8_t>(Pitch::VT_METHOD, static_cast<int8_t>(method), 0);
   }
   void add_pitch(uint8_t pitch) {
@@ -72,6 +69,7 @@ struct PitchBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
+  PitchBuilder &operator=(const PitchBuilder &);
   flatbuffers::Offset<Pitch> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Pitch>(end);
@@ -82,8 +80,8 @@ struct PitchBuilder {
 inline flatbuffers::Offset<Pitch> CreatePitch(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint64_t originTimestamp = 0,
-    ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all,
-    ImpresarioSerialization::PitchMethod method = ImpresarioSerialization::PitchMethod::schmitt,
+    FrequencyBand frequencyBand = FrequencyBand::all,
+    PitchMethod method = PitchMethod::schmitt,
     uint8_t pitch = 0,
     float confidence = 0.0f) {
   PitchBuilder builder_(_fbb);

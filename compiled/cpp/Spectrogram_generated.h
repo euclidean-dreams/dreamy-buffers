@@ -9,10 +9,8 @@
 namespace ImpresarioSerialization {
 
 struct Spectrogram;
-struct SpectrogramBuilder;
 
 struct Spectrogram FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef SpectrogramBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ORIGINTIMESTAMP = 4,
     VT_MAGNITUDES = 6,
@@ -57,7 +55,6 @@ struct Spectrogram FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct SpectrogramBuilder {
-  typedef Spectrogram Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_originTimestamp(uint64_t originTimestamp) {
@@ -82,6 +79,7 @@ struct SpectrogramBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
+  SpectrogramBuilder &operator=(const SpectrogramBuilder &);
   flatbuffers::Offset<Spectrogram> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Spectrogram>(end);

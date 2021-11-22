@@ -36,7 +36,7 @@ inline const FrequencyBand (&EnumValuesFrequencyBand())[8] {
 }
 
 inline const char * const *EnumNamesFrequencyBand() {
-  static const char * const names[9] = {
+  static const char * const names[] = {
     "all",
     "subBass",
     "bass",
@@ -51,7 +51,7 @@ inline const char * const *EnumNamesFrequencyBand() {
 }
 
 inline const char *EnumNameFrequencyBand(FrequencyBand e) {
-  if (flatbuffers::IsOutRange(e, FrequencyBand::all, FrequencyBand::brilliance)) return "";
+  if (e < FrequencyBand::all || e > FrequencyBand::brilliance) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesFrequencyBand()[index];
 }

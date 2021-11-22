@@ -1,7 +1,9 @@
+include "cosmographer/Color.fbs";
+
 namespace ImpresarioSerialization;
 
 table Luminary {
-    glimpse:[uint8];
+    glimpse:[Color];
 }
 
 root_type Luminary;

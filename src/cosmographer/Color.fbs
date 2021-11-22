@@ -1,0 +1,7 @@
+namespace ImpresarioSerialization;
+
+struct Color {
+    red:uint8;
+    green:uint8;
+    blue:uint8;
+}

@@ -6,18 +6,18 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+#include "Color_generated.h"
+
 namespace ImpresarioSerialization {
 
 struct Luminary;
-struct LuminaryBuilder;
 
 struct Luminary FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef LuminaryBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_GLIMPSE = 4
   };
-  const flatbuffers::Vector<uint8_t> *glimpse() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_GLIMPSE);
+  const flatbuffers::Vector<const Color *> *glimpse() const {
+    return GetPointer<const flatbuffers::Vector<const Color *> *>(VT_GLIMPSE);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -28,16 +28,16 @@ struct Luminary FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct LuminaryBuilder {
-  typedef Luminary Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_glimpse(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> glimpse) {
+  void add_glimpse(flatbuffers::Offset<flatbuffers::Vector<const Color *>> glimpse) {
     fbb_.AddOffset(Luminary::VT_GLIMPSE, glimpse);
   }
   explicit LuminaryBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
+  LuminaryBuilder &operator=(const LuminaryBuilder &);
   flatbuffers::Offset<Luminary> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Luminary>(end);
@@ -47,7 +47,7 @@ struct LuminaryBuilder {
 
 inline flatbuffers::Offset<Luminary> CreateLuminary(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> glimpse = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<const Color *>> glimpse = 0) {
   LuminaryBuilder builder_(_fbb);
   builder_.add_glimpse(glimpse);
   return builder_.Finish();
@@ -55,8 +55,8 @@ inline flatbuffers::Offset<Luminary> CreateLuminary(
 
 inline flatbuffers::Offset<Luminary> CreateLuminaryDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<uint8_t> *glimpse = nullptr) {
-  auto glimpse__ = glimpse ? _fbb.CreateVector<uint8_t>(*glimpse) : 0;
+    const std::vector<Color> *glimpse = nullptr) {
+  auto glimpse__ = glimpse ? _fbb.CreateVectorOfStructs<Color>(*glimpse) : 0;
   return ImpresarioSerialization::CreateLuminary(
       _fbb,
       glimpse__);

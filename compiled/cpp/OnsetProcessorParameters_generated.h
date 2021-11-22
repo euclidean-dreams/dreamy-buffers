@@ -12,18 +12,16 @@
 namespace ImpresarioSerialization {
 
 struct OnsetProcessorParameters;
-struct OnsetProcessorParametersBuilder;
 
 struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef OnsetProcessorParametersBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_METHOD = 4,
     VT_THRESHOLD = 6,
     VT_PEAKPICKINGWINDOWSIZE = 8,
     VT_PEAKPICKINGWINDOWTAILMULTIPLIER = 10
   };
-  ImpresarioSerialization::OnsetMethod method() const {
-    return static_cast<ImpresarioSerialization::OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
+  OnsetMethod method() const {
+    return static_cast<OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
   }
   float threshold() const {
     return GetField<float>(VT_THRESHOLD, 0.0f);
@@ -45,10 +43,9 @@ struct OnsetProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
 };
 
 struct OnsetProcessorParametersBuilder {
-  typedef OnsetProcessorParameters Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_method(ImpresarioSerialization::OnsetMethod method) {
+  void add_method(OnsetMethod method) {
     fbb_.AddElement<int8_t>(OnsetProcessorParameters::VT_METHOD, static_cast<int8_t>(method), 0);
   }
   void add_threshold(float threshold) {
@@ -64,6 +61,7 @@ struct OnsetProcessorParametersBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
+  OnsetProcessorParametersBuilder &operator=(const OnsetProcessorParametersBuilder &);
   flatbuffers::Offset<OnsetProcessorParameters> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<OnsetProcessorParameters>(end);
@@ -73,7 +71,7 @@ struct OnsetProcessorParametersBuilder {
 
 inline flatbuffers::Offset<OnsetProcessorParameters> CreateOnsetProcessorParameters(
     flatbuffers::FlatBufferBuilder &_fbb,
-    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::specflux,
+    OnsetMethod method = OnsetMethod::specflux,
     float threshold = 0.0f,
     uint8_t peakPickingWindowSize = 0,
     uint8_t peakPickingWindowTailMultiplier = 0) {

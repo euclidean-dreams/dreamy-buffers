@@ -11,17 +11,15 @@
 namespace ImpresarioSerialization {
 
 struct PitchProcessorParameters;
-struct PitchProcessorParametersBuilder;
 
 struct PitchProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef PitchProcessorParametersBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_METHOD = 4,
     VT_THRESHOLD = 6,
     VT_SILENCE = 8
   };
-  ImpresarioSerialization::PitchMethod method() const {
-    return static_cast<ImpresarioSerialization::PitchMethod>(GetField<int8_t>(VT_METHOD, 0));
+  PitchMethod method() const {
+    return static_cast<PitchMethod>(GetField<int8_t>(VT_METHOD, 0));
   }
   float threshold() const {
     return GetField<float>(VT_THRESHOLD, 0.0f);
@@ -39,10 +37,9 @@ struct PitchProcessorParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
 };
 
 struct PitchProcessorParametersBuilder {
-  typedef PitchProcessorParameters Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_method(ImpresarioSerialization::PitchMethod method) {
+  void add_method(PitchMethod method) {
     fbb_.AddElement<int8_t>(PitchProcessorParameters::VT_METHOD, static_cast<int8_t>(method), 0);
   }
   void add_threshold(float threshold) {
@@ -55,6 +52,7 @@ struct PitchProcessorParametersBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
+  PitchProcessorParametersBuilder &operator=(const PitchProcessorParametersBuilder &);
   flatbuffers::Offset<PitchProcessorParameters> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<PitchProcessorParameters>(end);
@@ -64,7 +62,7 @@ struct PitchProcessorParametersBuilder {
 
 inline flatbuffers::Offset<PitchProcessorParameters> CreatePitchProcessorParameters(
     flatbuffers::FlatBufferBuilder &_fbb,
-    ImpresarioSerialization::PitchMethod method = ImpresarioSerialization::PitchMethod::schmitt,
+    PitchMethod method = PitchMethod::schmitt,
     float threshold = 0.0f,
     float silence = 0.0f) {
   PitchProcessorParametersBuilder builder_(_fbb);

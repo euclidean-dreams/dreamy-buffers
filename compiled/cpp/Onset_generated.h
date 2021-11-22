@@ -12,10 +12,8 @@
 namespace ImpresarioSerialization {
 
 struct Onset;
-struct OnsetBuilder;
 
 struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef OnsetBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ORIGINTIMESTAMP = 4,
     VT_FREQUENCYBAND = 6,
@@ -26,11 +24,11 @@ struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint64_t originTimestamp() const {
     return GetField<uint64_t>(VT_ORIGINTIMESTAMP, 0);
   }
-  ImpresarioSerialization::FrequencyBand frequencyBand() const {
-    return static_cast<ImpresarioSerialization::FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
+  FrequencyBand frequencyBand() const {
+    return static_cast<FrequencyBand>(GetField<int8_t>(VT_FREQUENCYBAND, 0));
   }
-  ImpresarioSerialization::OnsetMethod method() const {
-    return static_cast<ImpresarioSerialization::OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
+  OnsetMethod method() const {
+    return static_cast<OnsetMethod>(GetField<int8_t>(VT_METHOD, 0));
   }
   uint64_t timestamp() const {
     return GetField<uint64_t>(VT_TIMESTAMP, 0);
@@ -50,16 +48,15 @@ struct Onset FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct OnsetBuilder {
-  typedef Onset Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_originTimestamp(uint64_t originTimestamp) {
     fbb_.AddElement<uint64_t>(Onset::VT_ORIGINTIMESTAMP, originTimestamp, 0);
   }
-  void add_frequencyBand(ImpresarioSerialization::FrequencyBand frequencyBand) {
+  void add_frequencyBand(FrequencyBand frequencyBand) {
     fbb_.AddElement<int8_t>(Onset::VT_FREQUENCYBAND, static_cast<int8_t>(frequencyBand), 0);
   }
-  void add_method(ImpresarioSerialization::OnsetMethod method) {
+  void add_method(OnsetMethod method) {
     fbb_.AddElement<int8_t>(Onset::VT_METHOD, static_cast<int8_t>(method), 0);
   }
   void add_timestamp(uint64_t timestamp) {
@@ -72,6 +69,7 @@ struct OnsetBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
+  OnsetBuilder &operator=(const OnsetBuilder &);
   flatbuffers::Offset<Onset> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Onset>(end);
@@ -82,8 +80,8 @@ struct OnsetBuilder {
 inline flatbuffers::Offset<Onset> CreateOnset(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint64_t originTimestamp = 0,
-    ImpresarioSerialization::FrequencyBand frequencyBand = ImpresarioSerialization::FrequencyBand::all,
-    ImpresarioSerialization::OnsetMethod method = ImpresarioSerialization::OnsetMethod::specflux,
+    FrequencyBand frequencyBand = FrequencyBand::all,
+    OnsetMethod method = OnsetMethod::specflux,
     uint64_t timestamp = 0,
     float confidence = 0.0f) {
   OnsetBuilder builder_(_fbb);

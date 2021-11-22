@@ -3,23 +3,17 @@
 # namespace: ImpresarioSerialization
 
 import flatbuffers
-from flatbuffers.compat import import_numpy
-np = import_numpy()
 
 class Pitch(object):
     __slots__ = ['_tab']
 
     @classmethod
-    def GetRootAs(cls, buf, offset=0):
+    def GetRootAsPitch(cls, buf, offset):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
         x = Pitch()
         x.Init(buf, n + offset)
         return x
 
-    @classmethod
-    def GetRootAsPitch(cls, buf, offset=0):
-        """This method is deprecated. Please switch to GetRootAs."""
-        return cls.GetRootAs(buf, offset)
     # Pitch
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
@@ -59,31 +53,10 @@ class Pitch(object):
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
-def Start(builder): builder.StartObject(5)
-def PitchStart(builder):
-    """This method is deprecated. Please switch to Start."""
-    return Start(builder)
-def AddOriginTimestamp(builder, originTimestamp): builder.PrependUint64Slot(0, originTimestamp, 0)
-def PitchAddOriginTimestamp(builder, originTimestamp):
-    """This method is deprecated. Please switch to AddOriginTimestamp."""
-    return AddOriginTimestamp(builder, originTimestamp)
-def AddFrequencyBand(builder, frequencyBand): builder.PrependInt8Slot(1, frequencyBand, 0)
-def PitchAddFrequencyBand(builder, frequencyBand):
-    """This method is deprecated. Please switch to AddFrequencyBand."""
-    return AddFrequencyBand(builder, frequencyBand)
-def AddMethod(builder, method): builder.PrependInt8Slot(2, method, 0)
-def PitchAddMethod(builder, method):
-    """This method is deprecated. Please switch to AddMethod."""
-    return AddMethod(builder, method)
-def AddPitch(builder, pitch): builder.PrependUint8Slot(3, pitch, 0)
-def PitchAddPitch(builder, pitch):
-    """This method is deprecated. Please switch to AddPitch."""
-    return AddPitch(builder, pitch)
-def AddConfidence(builder, confidence): builder.PrependFloat32Slot(4, confidence, 0.0)
-def PitchAddConfidence(builder, confidence):
-    """This method is deprecated. Please switch to AddConfidence."""
-    return AddConfidence(builder, confidence)
-def End(builder): return builder.EndObject()
-def PitchEnd(builder):
-    """This method is deprecated. Please switch to End."""
-    return End(builder)
+def PitchStart(builder): builder.StartObject(5)
+def PitchAddOriginTimestamp(builder, originTimestamp): builder.PrependUint64Slot(0, originTimestamp, 0)
+def PitchAddFrequencyBand(builder, frequencyBand): builder.PrependInt8Slot(1, frequencyBand, 0)
+def PitchAddMethod(builder, method): builder.PrependInt8Slot(2, method, 0)
+def PitchAddPitch(builder, pitch): builder.PrependUint8Slot(3, pitch, 0)
+def PitchAddConfidence(builder, confidence): builder.PrependFloat32Slot(4, confidence, 0.0)
+def PitchEnd(builder): return builder.EndObject()

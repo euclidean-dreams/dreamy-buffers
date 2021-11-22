@@ -9,10 +9,8 @@
 namespace ImpresarioSerialization {
 
 struct DisplaySignal;
-struct DisplaySignalBuilder;
 
 struct DisplaySignal FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef DisplaySignalBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ORIGINTIMESTAMP = 4,
     VT_SAMPLES = 6
@@ -33,7 +31,6 @@ struct DisplaySignal FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct DisplaySignalBuilder {
-  typedef DisplaySignal Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_originTimestamp(uint64_t originTimestamp) {
@@ -46,6 +43,7 @@ struct DisplaySignalBuilder {
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
+  DisplaySignalBuilder &operator=(const DisplaySignalBuilder &);
   flatbuffers::Offset<DisplaySignal> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<DisplaySignal>(end);

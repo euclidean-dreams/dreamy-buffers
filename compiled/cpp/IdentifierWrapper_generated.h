@@ -9,7 +9,6 @@
 namespace ImpresarioSerialization {
 
 struct IdentifierWrapper;
-struct IdentifierWrapperBuilder;
 
 enum class Identifier : int8_t {
   onset = 0,
@@ -41,7 +40,7 @@ inline const Identifier (&EnumValuesIdentifier())[9] {
 }
 
 inline const char * const *EnumNamesIdentifier() {
-  static const char * const names[10] = {
+  static const char * const names[] = {
     "onset",
     "onsetProcessorParameters",
     "pitch",
@@ -57,18 +56,17 @@ inline const char * const *EnumNamesIdentifier() {
 }
 
 inline const char *EnumNameIdentifier(Identifier e) {
-  if (flatbuffers::IsOutRange(e, Identifier::onset, Identifier::luminary)) return "";
+  if (e < Identifier::onset || e > Identifier::luminary) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesIdentifier()[index];
 }
 
 struct IdentifierWrapper FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef IdentifierWrapperBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_IDENTIFIER = 4
   };
-  ImpresarioSerialization::Identifier identifier() const {
-    return static_cast<ImpresarioSerialization::Identifier>(GetField<int8_t>(VT_IDENTIFIER, 0));
+  Identifier identifier() const {
+    return static_cast<Identifier>(GetField<int8_t>(VT_IDENTIFIER, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -78,16 +76,16 @@ struct IdentifierWrapper FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct IdentifierWrapperBuilder {
-  typedef IdentifierWrapper Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_identifier(ImpresarioSerialization::Identifier identifier) {
+  void add_identifier(Identifier identifier) {
     fbb_.AddElement<int8_t>(IdentifierWrapper::VT_IDENTIFIER, static_cast<int8_t>(identifier), 0);
   }
   explicit IdentifierWrapperBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
+  IdentifierWrapperBuilder &operator=(const IdentifierWrapperBuilder &);
   flatbuffers::Offset<IdentifierWrapper> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<IdentifierWrapper>(end);
@@ -97,7 +95,7 @@ struct IdentifierWrapperBuilder {
 
 inline flatbuffers::Offset<IdentifierWrapper> CreateIdentifierWrapper(
     flatbuffers::FlatBufferBuilder &_fbb,
-    ImpresarioSerialization::Identifier identifier = ImpresarioSerialization::Identifier::onset) {
+    Identifier identifier = Identifier::onset) {
   IdentifierWrapperBuilder builder_(_fbb);
   builder_.add_identifier(identifier);
   return builder_.Finish();

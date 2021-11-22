@@ -32,7 +32,7 @@ inline const PitchMethod (&EnumValuesPitchMethod())[6] {
 }
 
 inline const char * const *EnumNamesPitchMethod() {
-  static const char * const names[7] = {
+  static const char * const names[] = {
     "schmitt",
     "fcomb",
     "mcomb",
@@ -45,7 +45,7 @@ inline const char * const *EnumNamesPitchMethod() {
 }
 
 inline const char *EnumNamePitchMethod(PitchMethod e) {
-  if (flatbuffers::IsOutRange(e, PitchMethod::schmitt, PitchMethod::yinfft)) return "";
+  if (e < PitchMethod::schmitt || e > PitchMethod::yinfft) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPitchMethod()[index];
 }

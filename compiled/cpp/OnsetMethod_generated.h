@@ -22,7 +22,7 @@ inline const OnsetMethod (&EnumValuesOnsetMethod())[1] {
 }
 
 inline const char * const *EnumNamesOnsetMethod() {
-  static const char * const names[2] = {
+  static const char * const names[] = {
     "specflux",
     nullptr
   };
@@ -30,7 +30,7 @@ inline const char * const *EnumNamesOnsetMethod() {
 }
 
 inline const char *EnumNameOnsetMethod(OnsetMethod e) {
-  if (flatbuffers::IsOutRange(e, OnsetMethod::specflux, OnsetMethod::specflux)) return "";
+  if (e < OnsetMethod::specflux || e > OnsetMethod::specflux) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesOnsetMethod()[index];
 }
