@@ -3,13 +3,8 @@
 # namespace: ImpresarioSerialization
 
 class Identifier(object):
-    onset = 0
-    onsetProcessorParameters = 1
-    pitch = 2
-    pitchProcessorParameters = 3
-    spectrogram = 4
-    displaySignal = 5
-    floatMorsel = 6
-    floatArrayMorsel = 7
-    luminary = 8
+    axiomology = 0
+    phenomenon = 1
+    signalarium = 2
+    luminary = 3
 

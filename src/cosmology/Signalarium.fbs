@@ -1,0 +1,8 @@
+namespace ImpresarioSerialization;
+
+table Signalarium {
+    stft:[float32];
+    radixes:[float32];
+}
+
+root_type Signalarium;

@@ -1,0 +1,10 @@
+namespace ImpresarioSerialization;
+
+table Axiomology {
+    gain:float32;
+    energy:float32;
+    hue: float32;
+    wildcards:[float32];
+}
+
+root_type Axiomology;

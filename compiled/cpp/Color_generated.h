@@ -17,8 +17,10 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(1) Color FLATBUFFERS_FINAL_CLASS {
   uint8_t blue_;
 
  public:
-  Color() {
-    memset(static_cast<void *>(this), 0, sizeof(Color));
+  Color()
+      : red_(0),
+        green_(0),
+        blue_(0) {
   }
   Color(uint8_t _red, uint8_t _green, uint8_t _blue)
       : red_(flatbuffers::EndianScalar(_red)),

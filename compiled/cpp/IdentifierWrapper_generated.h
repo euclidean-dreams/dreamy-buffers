@@ -9,46 +9,32 @@
 namespace ImpresarioSerialization {
 
 struct IdentifierWrapper;
+struct IdentifierWrapperBuilder;
 
 enum class Identifier : int8_t {
-  onset = 0,
-  onsetProcessorParameters = 1,
-  pitch = 2,
-  pitchProcessorParameters = 3,
-  spectrogram = 4,
-  displaySignal = 5,
-  floatMorsel = 6,
-  floatArrayMorsel = 7,
-  luminary = 8,
-  MIN = onset,
+  axiomology = 0,
+  phenomenon = 1,
+  signalarium = 2,
+  luminary = 3,
+  MIN = axiomology,
   MAX = luminary
 };
 
-inline const Identifier (&EnumValuesIdentifier())[9] {
+inline const Identifier (&EnumValuesIdentifier())[4] {
   static const Identifier values[] = {
-    Identifier::onset,
-    Identifier::onsetProcessorParameters,
-    Identifier::pitch,
-    Identifier::pitchProcessorParameters,
-    Identifier::spectrogram,
-    Identifier::displaySignal,
-    Identifier::floatMorsel,
-    Identifier::floatArrayMorsel,
+    Identifier::axiomology,
+    Identifier::phenomenon,
+    Identifier::signalarium,
     Identifier::luminary
   };
   return values;
 }
 
 inline const char * const *EnumNamesIdentifier() {
-  static const char * const names[] = {
-    "onset",
-    "onsetProcessorParameters",
-    "pitch",
-    "pitchProcessorParameters",
-    "spectrogram",
-    "displaySignal",
-    "floatMorsel",
-    "floatArrayMorsel",
+  static const char * const names[5] = {
+    "axiomology",
+    "phenomenon",
+    "signalarium",
     "luminary",
     nullptr
   };
@@ -56,17 +42,18 @@ inline const char * const *EnumNamesIdentifier() {
 }
 
 inline const char *EnumNameIdentifier(Identifier e) {
-  if (e < Identifier::onset || e > Identifier::luminary) return "";
+  if (flatbuffers::IsOutRange(e, Identifier::axiomology, Identifier::luminary)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesIdentifier()[index];
 }
 
 struct IdentifierWrapper FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef IdentifierWrapperBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_IDENTIFIER = 4
   };
-  Identifier identifier() const {
-    return static_cast<Identifier>(GetField<int8_t>(VT_IDENTIFIER, 0));
+  ImpresarioSerialization::Identifier identifier() const {
+    return static_cast<ImpresarioSerialization::Identifier>(GetField<int8_t>(VT_IDENTIFIER, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -76,16 +63,16 @@ struct IdentifierWrapper FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 };
 
 struct IdentifierWrapperBuilder {
+  typedef IdentifierWrapper Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_identifier(Identifier identifier) {
+  void add_identifier(ImpresarioSerialization::Identifier identifier) {
     fbb_.AddElement<int8_t>(IdentifierWrapper::VT_IDENTIFIER, static_cast<int8_t>(identifier), 0);
   }
   explicit IdentifierWrapperBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  IdentifierWrapperBuilder &operator=(const IdentifierWrapperBuilder &);
   flatbuffers::Offset<IdentifierWrapper> Finish() {
     const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<IdentifierWrapper>(end);
@@ -95,7 +82,7 @@ struct IdentifierWrapperBuilder {
 
 inline flatbuffers::Offset<IdentifierWrapper> CreateIdentifierWrapper(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Identifier identifier = Identifier::onset) {
+    ImpresarioSerialization::Identifier identifier = ImpresarioSerialization::Identifier::axiomology) {
   IdentifierWrapperBuilder builder_(_fbb);
   builder_.add_identifier(identifier);
   return builder_.Finish();

@@ -3,17 +3,23 @@
 # namespace: ImpresarioSerialization
 
 import flatbuffers
+from flatbuffers.compat import import_numpy
+np = import_numpy()
 
 class IdentifierWrapper(object):
     __slots__ = ['_tab']
 
     @classmethod
-    def GetRootAsIdentifierWrapper(cls, buf, offset):
+    def GetRootAs(cls, buf, offset=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
         x = IdentifierWrapper()
         x.Init(buf, n + offset)
         return x
 
+    @classmethod
+    def GetRootAsIdentifierWrapper(cls, buf, offset=0):
+        """This method is deprecated. Please switch to GetRootAs."""
+        return cls.GetRootAs(buf, offset)
     # IdentifierWrapper
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
@@ -25,6 +31,15 @@ class IdentifierWrapper(object):
             return self._tab.Get(flatbuffers.number_types.Int8Flags, o + self._tab.Pos)
         return 0
 
-def IdentifierWrapperStart(builder): builder.StartObject(1)
-def IdentifierWrapperAddIdentifier(builder, identifier): builder.PrependInt8Slot(0, identifier, 0)
-def IdentifierWrapperEnd(builder): return builder.EndObject()
+def Start(builder): builder.StartObject(1)
+def IdentifierWrapperStart(builder):
+    """This method is deprecated. Please switch to Start."""
+    return Start(builder)
+def AddIdentifier(builder, identifier): builder.PrependInt8Slot(0, identifier, 0)
+def IdentifierWrapperAddIdentifier(builder, identifier):
+    """This method is deprecated. Please switch to AddIdentifier."""
+    return AddIdentifier(builder, identifier)
+def End(builder): return builder.EndObject()
+def IdentifierWrapperEnd(builder):
+    """This method is deprecated. Please switch to End."""
+    return End(builder)

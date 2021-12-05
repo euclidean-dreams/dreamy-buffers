@@ -3,9 +3,15 @@
 # namespace: ImpresarioSerialization
 
 import flatbuffers
+from flatbuffers.compat import import_numpy
+np = import_numpy()
 
 class Color(object):
     __slots__ = ['_tab']
+
+    @classmethod
+    def SizeOf(cls):
+        return 3
 
     # Color
     def Init(self, buf, pos):

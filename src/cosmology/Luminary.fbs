@@ -1,4 +1,4 @@
-include "cosmographer/Color.fbs";
+include "cosmology/Color.fbs";
 
 namespace ImpresarioSerialization;
 

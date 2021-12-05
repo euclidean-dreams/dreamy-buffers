@@ -1,0 +1,8 @@
+namespace ImpresarioSerialization;
+
+table Phenomenon {
+    name:int32;
+    quantity:float32;
+}
+
+root_type Phenomenon;
