@@ -4,7 +4,7 @@ table Axiomology {
     gain:float32;
     energy:float32;
     hue: float32;
-    brightness:float32;
+    brightness:uint8;
     wildcards:[float32];
 }
 

@@ -49,8 +49,8 @@ class Axiomology(object):
     def Brightness(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
         if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
-        return 0.0
+            return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
+        return 0
 
     # Axiomology
     def Wildcards(self, j):
@@ -95,7 +95,7 @@ def AddHue(builder, hue): builder.PrependFloat32Slot(2, hue, 0.0)
 def AxiomologyAddHue(builder, hue):
     """This method is deprecated. Please switch to AddHue."""
     return AddHue(builder, hue)
-def AddBrightness(builder, brightness): builder.PrependFloat32Slot(3, brightness, 0.0)
+def AddBrightness(builder, brightness): builder.PrependUint8Slot(3, brightness, 0)
 def AxiomologyAddBrightness(builder, brightness):
     """This method is deprecated. Please switch to AddBrightness."""
     return AddBrightness(builder, brightness)
