@@ -16,13 +16,18 @@ struct LuminaryBuilder;
 struct Luminary FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef LuminaryBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_GLIMPSE = 4
+    VT_BRIGHTNESS = 4,
+    VT_GLIMPSE = 6
   };
+  uint8_t brightness() const {
+    return GetField<uint8_t>(VT_BRIGHTNESS, 0);
+  }
   const flatbuffers::Vector<const ImpresarioSerialization::Color *> *glimpse() const {
     return GetPointer<const flatbuffers::Vector<const ImpresarioSerialization::Color *> *>(VT_GLIMPSE);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_BRIGHTNESS) &&
            VerifyOffset(verifier, VT_GLIMPSE) &&
            verifier.VerifyVector(glimpse()) &&
            verifier.EndTable();
@@ -33,6 +38,9 @@ struct LuminaryBuilder {
   typedef Luminary Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
+  void add_brightness(uint8_t brightness) {
+    fbb_.AddElement<uint8_t>(Luminary::VT_BRIGHTNESS, brightness, 0);
+  }
   void add_glimpse(flatbuffers::Offset<flatbuffers::Vector<const ImpresarioSerialization::Color *>> glimpse) {
     fbb_.AddOffset(Luminary::VT_GLIMPSE, glimpse);
   }
@@ -49,18 +57,22 @@ struct LuminaryBuilder {
 
 inline flatbuffers::Offset<Luminary> CreateLuminary(
     flatbuffers::FlatBufferBuilder &_fbb,
+    uint8_t brightness = 0,
     flatbuffers::Offset<flatbuffers::Vector<const ImpresarioSerialization::Color *>> glimpse = 0) {
   LuminaryBuilder builder_(_fbb);
   builder_.add_glimpse(glimpse);
+  builder_.add_brightness(brightness);
   return builder_.Finish();
 }
 
 inline flatbuffers::Offset<Luminary> CreateLuminaryDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
+    uint8_t brightness = 0,
     const std::vector<ImpresarioSerialization::Color> *glimpse = nullptr) {
   auto glimpse__ = glimpse ? _fbb.CreateVectorOfStructs<ImpresarioSerialization::Color>(*glimpse) : 0;
   return ImpresarioSerialization::CreateLuminary(
       _fbb,
+      brightness,
       glimpse__);
 }
 

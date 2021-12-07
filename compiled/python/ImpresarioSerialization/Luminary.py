@@ -25,8 +25,15 @@ class Luminary(object):
         self._tab = flatbuffers.table.Table(buf, pos)
 
     # Luminary
-    def Glimpse(self, j):
+    def Brightness(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
+        if o != 0:
+            return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
+        return 0
+
+    # Luminary
+    def Glimpse(self, j):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             x = self._tab.Vector(o)
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 3
@@ -38,21 +45,25 @@ class Luminary(object):
 
     # Luminary
     def GlimpseLength(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
     # Luminary
     def GlimpseIsNone(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         return o == 0
 
-def Start(builder): builder.StartObject(1)
+def Start(builder): builder.StartObject(2)
 def LuminaryStart(builder):
     """This method is deprecated. Please switch to Start."""
     return Start(builder)
-def AddGlimpse(builder, glimpse): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(glimpse), 0)
+def AddBrightness(builder, brightness): builder.PrependUint8Slot(0, brightness, 0)
+def LuminaryAddBrightness(builder, brightness):
+    """This method is deprecated. Please switch to AddBrightness."""
+    return AddBrightness(builder, brightness)
+def AddGlimpse(builder, glimpse): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(glimpse), 0)
 def LuminaryAddGlimpse(builder, glimpse):
     """This method is deprecated. Please switch to AddGlimpse."""
     return AddGlimpse(builder, glimpse)

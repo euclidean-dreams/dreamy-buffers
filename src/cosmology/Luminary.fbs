@@ -3,6 +3,7 @@ include "cosmology/Color.fbs";
 namespace ImpresarioSerialization;
 
 table Luminary {
+    brightness:uint8;
     glimpse:[Color];
 }
 
