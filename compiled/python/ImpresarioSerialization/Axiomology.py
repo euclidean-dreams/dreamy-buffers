@@ -46,8 +46,15 @@ class Axiomology(object):
         return 0.0
 
     # Axiomology
-    def Wildcards(self, j):
+    def Brightness(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
+        if o != 0:
+            return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
+        return 0.0
+
+    # Axiomology
+    def Wildcards(self, j):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
         if o != 0:
             a = self._tab.Vector(o)
             return self._tab.Get(flatbuffers.number_types.Float32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
@@ -55,24 +62,24 @@ class Axiomology(object):
 
     # Axiomology
     def WildcardsAsNumpy(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
         if o != 0:
             return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Float32Flags, o)
         return 0
 
     # Axiomology
     def WildcardsLength(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
     # Axiomology
     def WildcardsIsNone(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
         return o == 0
 
-def Start(builder): builder.StartObject(4)
+def Start(builder): builder.StartObject(5)
 def AxiomologyStart(builder):
     """This method is deprecated. Please switch to Start."""
     return Start(builder)
@@ -88,7 +95,11 @@ def AddHue(builder, hue): builder.PrependFloat32Slot(2, hue, 0.0)
 def AxiomologyAddHue(builder, hue):
     """This method is deprecated. Please switch to AddHue."""
     return AddHue(builder, hue)
-def AddWildcards(builder, wildcards): builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(wildcards), 0)
+def AddBrightness(builder, brightness): builder.PrependFloat32Slot(3, brightness, 0.0)
+def AxiomologyAddBrightness(builder, brightness):
+    """This method is deprecated. Please switch to AddBrightness."""
+    return AddBrightness(builder, brightness)
+def AddWildcards(builder, wildcards): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(wildcards), 0)
 def AxiomologyAddWildcards(builder, wildcards):
     """This method is deprecated. Please switch to AddWildcards."""
     return AddWildcards(builder, wildcards)

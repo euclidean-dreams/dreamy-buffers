@@ -17,7 +17,8 @@ struct Axiomology FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_GAIN = 4,
     VT_ENERGY = 6,
     VT_HUE = 8,
-    VT_WILDCARDS = 10
+    VT_BRIGHTNESS = 10,
+    VT_WILDCARDS = 12
   };
   float gain() const {
     return GetField<float>(VT_GAIN, 0.0f);
@@ -28,6 +29,9 @@ struct Axiomology FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   float hue() const {
     return GetField<float>(VT_HUE, 0.0f);
   }
+  float brightness() const {
+    return GetField<float>(VT_BRIGHTNESS, 0.0f);
+  }
   const flatbuffers::Vector<float> *wildcards() const {
     return GetPointer<const flatbuffers::Vector<float> *>(VT_WILDCARDS);
   }
@@ -36,6 +40,7 @@ struct Axiomology FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<float>(verifier, VT_GAIN) &&
            VerifyField<float>(verifier, VT_ENERGY) &&
            VerifyField<float>(verifier, VT_HUE) &&
+           VerifyField<float>(verifier, VT_BRIGHTNESS) &&
            VerifyOffset(verifier, VT_WILDCARDS) &&
            verifier.VerifyVector(wildcards()) &&
            verifier.EndTable();
@@ -54,6 +59,9 @@ struct AxiomologyBuilder {
   }
   void add_hue(float hue) {
     fbb_.AddElement<float>(Axiomology::VT_HUE, hue, 0.0f);
+  }
+  void add_brightness(float brightness) {
+    fbb_.AddElement<float>(Axiomology::VT_BRIGHTNESS, brightness, 0.0f);
   }
   void add_wildcards(flatbuffers::Offset<flatbuffers::Vector<float>> wildcards) {
     fbb_.AddOffset(Axiomology::VT_WILDCARDS, wildcards);
@@ -74,9 +82,11 @@ inline flatbuffers::Offset<Axiomology> CreateAxiomology(
     float gain = 0.0f,
     float energy = 0.0f,
     float hue = 0.0f,
+    float brightness = 0.0f,
     flatbuffers::Offset<flatbuffers::Vector<float>> wildcards = 0) {
   AxiomologyBuilder builder_(_fbb);
   builder_.add_wildcards(wildcards);
+  builder_.add_brightness(brightness);
   builder_.add_hue(hue);
   builder_.add_energy(energy);
   builder_.add_gain(gain);
@@ -88,6 +98,7 @@ inline flatbuffers::Offset<Axiomology> CreateAxiomologyDirect(
     float gain = 0.0f,
     float energy = 0.0f,
     float hue = 0.0f,
+    float brightness = 0.0f,
     const std::vector<float> *wildcards = nullptr) {
   auto wildcards__ = wildcards ? _fbb.CreateVector<float>(*wildcards) : 0;
   return ImpresarioSerialization::CreateAxiomology(
@@ -95,6 +106,7 @@ inline flatbuffers::Offset<Axiomology> CreateAxiomologyDirect(
       gain,
       energy,
       hue,
+      brightness,
       wildcards__);
 }
 
