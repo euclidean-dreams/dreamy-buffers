@@ -1,7 +1,7 @@
 namespace ImpresarioSerialization;
 
 table Essentia {
-    melTransformSignal:[float32];
+    melSignal:[float32];
     radixes:[float32];
 }
 

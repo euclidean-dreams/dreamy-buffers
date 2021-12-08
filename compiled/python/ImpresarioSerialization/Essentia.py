@@ -25,7 +25,7 @@ class Essentia(object):
         self._tab = flatbuffers.table.Table(buf, pos)
 
     # Essentia
-    def MelTransformSignal(self, j):
+    def MelSignal(self, j):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             a = self._tab.Vector(o)
@@ -33,21 +33,21 @@ class Essentia(object):
         return 0
 
     # Essentia
-    def MelTransformSignalAsNumpy(self):
+    def MelSignalAsNumpy(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Float32Flags, o)
         return 0
 
     # Essentia
-    def MelTransformSignalLength(self):
+    def MelSignalLength(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
     # Essentia
-    def MelTransformSignalIsNone(self):
+    def MelSignalIsNone(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         return o == 0
 
@@ -82,14 +82,14 @@ def Start(builder): builder.StartObject(2)
 def EssentiaStart(builder):
     """This method is deprecated. Please switch to Start."""
     return Start(builder)
-def AddMelTransformSignal(builder, melTransformSignal): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(melTransformSignal), 0)
-def EssentiaAddMelTransformSignal(builder, melTransformSignal):
-    """This method is deprecated. Please switch to AddMelTransformSignal."""
-    return AddMelTransformSignal(builder, melTransformSignal)
-def StartMelTransformSignalVector(builder, numElems): return builder.StartVector(4, numElems, 4)
-def EssentiaStartMelTransformSignalVector(builder, numElems):
+def AddMelSignal(builder, melSignal): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(melSignal), 0)
+def EssentiaAddMelSignal(builder, melSignal):
+    """This method is deprecated. Please switch to AddMelSignal."""
+    return AddMelSignal(builder, melSignal)
+def StartMelSignalVector(builder, numElems): return builder.StartVector(4, numElems, 4)
+def EssentiaStartMelSignalVector(builder, numElems):
     """This method is deprecated. Please switch to Start."""
-    return StartMelTransformSignalVector(builder, numElems)
+    return StartMelSignalVector(builder, numElems)
 def AddRadixes(builder, radixes): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(radixes), 0)
 def EssentiaAddRadixes(builder, radixes):
     """This method is deprecated. Please switch to AddRadixes."""
