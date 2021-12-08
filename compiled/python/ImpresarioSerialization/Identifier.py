@@ -6,5 +6,5 @@ class Identifier(object):
     axiomology = 0
     phenomenon = 1
     signalarium = 2
-    luminary = 3
+    glimpse = 3
 

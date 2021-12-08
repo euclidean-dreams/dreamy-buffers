@@ -14,18 +14,18 @@ struct PhenomenonBuilder;
 struct Phenomenon FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef PhenomenonBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_NAME = 4,
+    VT_IDENTITY = 4,
     VT_QUANTITY = 6
   };
-  int32_t name() const {
-    return GetField<int32_t>(VT_NAME, 0);
+  int32_t identity() const {
+    return GetField<int32_t>(VT_IDENTITY, 0);
   }
   float quantity() const {
     return GetField<float>(VT_QUANTITY, 0.0f);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_NAME) &&
+           VerifyField<int32_t>(verifier, VT_IDENTITY) &&
            VerifyField<float>(verifier, VT_QUANTITY) &&
            verifier.EndTable();
   }
@@ -35,8 +35,8 @@ struct PhenomenonBuilder {
   typedef Phenomenon Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_name(int32_t name) {
-    fbb_.AddElement<int32_t>(Phenomenon::VT_NAME, name, 0);
+  void add_identity(int32_t identity) {
+    fbb_.AddElement<int32_t>(Phenomenon::VT_IDENTITY, identity, 0);
   }
   void add_quantity(float quantity) {
     fbb_.AddElement<float>(Phenomenon::VT_QUANTITY, quantity, 0.0f);
@@ -54,11 +54,11 @@ struct PhenomenonBuilder {
 
 inline flatbuffers::Offset<Phenomenon> CreatePhenomenon(
     flatbuffers::FlatBufferBuilder &_fbb,
-    int32_t name = 0,
+    int32_t identity = 0,
     float quantity = 0.0f) {
   PhenomenonBuilder builder_(_fbb);
   builder_.add_quantity(quantity);
-  builder_.add_name(name);
+  builder_.add_identity(identity);
   return builder_.Finish();
 }
 

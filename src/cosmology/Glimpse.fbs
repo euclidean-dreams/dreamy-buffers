@@ -2,9 +2,9 @@ include "cosmology/Color.fbs";
 
 namespace ImpresarioSerialization;
 
-table Luminary {
+table Glimpse {
     brightness:uint8;
-    glimpse:[Color];
+    colors:[Color];
 }
 
-root_type Luminary;
+root_type Glimpse;

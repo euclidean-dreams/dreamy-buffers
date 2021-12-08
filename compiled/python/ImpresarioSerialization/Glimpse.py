@@ -6,33 +6,33 @@ import flatbuffers
 from flatbuffers.compat import import_numpy
 np = import_numpy()
 
-class Luminary(object):
+class Glimpse(object):
     __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
-        x = Luminary()
+        x = Glimpse()
         x.Init(buf, n + offset)
         return x
 
     @classmethod
-    def GetRootAsLuminary(cls, buf, offset=0):
+    def GetRootAsGlimpse(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-    # Luminary
+    # Glimpse
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
 
-    # Luminary
+    # Glimpse
     def Brightness(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
-    # Luminary
-    def Glimpse(self, j):
+    # Glimpse
+    def Colors(self, j):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             x = self._tab.Vector(o)
@@ -43,35 +43,35 @@ class Luminary(object):
             return obj
         return None
 
-    # Luminary
-    def GlimpseLength(self):
+    # Glimpse
+    def ColorsLength(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
-    # Luminary
-    def GlimpseIsNone(self):
+    # Glimpse
+    def ColorsIsNone(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         return o == 0
 
 def Start(builder): builder.StartObject(2)
-def LuminaryStart(builder):
+def GlimpseStart(builder):
     """This method is deprecated. Please switch to Start."""
     return Start(builder)
 def AddBrightness(builder, brightness): builder.PrependUint8Slot(0, brightness, 0)
-def LuminaryAddBrightness(builder, brightness):
+def GlimpseAddBrightness(builder, brightness):
     """This method is deprecated. Please switch to AddBrightness."""
     return AddBrightness(builder, brightness)
-def AddGlimpse(builder, glimpse): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(glimpse), 0)
-def LuminaryAddGlimpse(builder, glimpse):
-    """This method is deprecated. Please switch to AddGlimpse."""
-    return AddGlimpse(builder, glimpse)
-def StartGlimpseVector(builder, numElems): return builder.StartVector(3, numElems, 1)
-def LuminaryStartGlimpseVector(builder, numElems):
+def AddColors(builder, colors): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(colors), 0)
+def GlimpseAddColors(builder, colors):
+    """This method is deprecated. Please switch to AddColors."""
+    return AddColors(builder, colors)
+def StartColorsVector(builder, numElems): return builder.StartVector(3, numElems, 1)
+def GlimpseStartColorsVector(builder, numElems):
     """This method is deprecated. Please switch to Start."""
-    return StartGlimpseVector(builder, numElems)
+    return StartColorsVector(builder, numElems)
 def End(builder): return builder.EndObject()
-def LuminaryEnd(builder):
+def GlimpseEnd(builder):
     """This method is deprecated. Please switch to End."""
     return End(builder)

@@ -6,25 +6,25 @@ import flatbuffers
 from flatbuffers.compat import import_numpy
 np = import_numpy()
 
-class Signalarium(object):
+class Essentia(object):
     __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
-        x = Signalarium()
+        x = Essentia()
         x.Init(buf, n + offset)
         return x
 
     @classmethod
-    def GetRootAsSignalarium(cls, buf, offset=0):
+    def GetRootAsEssentia(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-    # Signalarium
+    # Essentia
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
 
-    # Signalarium
+    # Essentia
     def Stft(self, j):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
@@ -32,26 +32,26 @@ class Signalarium(object):
             return self._tab.Get(flatbuffers.number_types.Float32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
         return 0
 
-    # Signalarium
+    # Essentia
     def StftAsNumpy(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Float32Flags, o)
         return 0
 
-    # Signalarium
+    # Essentia
     def StftLength(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
-    # Signalarium
+    # Essentia
     def StftIsNone(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         return o == 0
 
-    # Signalarium
+    # Essentia
     def Radixes(self, j):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
@@ -59,46 +59,46 @@ class Signalarium(object):
             return self._tab.Get(flatbuffers.number_types.Float32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
         return 0
 
-    # Signalarium
+    # Essentia
     def RadixesAsNumpy(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Float32Flags, o)
         return 0
 
-    # Signalarium
+    # Essentia
     def RadixesLength(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
-    # Signalarium
+    # Essentia
     def RadixesIsNone(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         return o == 0
 
 def Start(builder): builder.StartObject(2)
-def SignalariumStart(builder):
+def EssentiaStart(builder):
     """This method is deprecated. Please switch to Start."""
     return Start(builder)
 def AddStft(builder, stft): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(stft), 0)
-def SignalariumAddStft(builder, stft):
+def EssentiaAddStft(builder, stft):
     """This method is deprecated. Please switch to AddStft."""
     return AddStft(builder, stft)
 def StartStftVector(builder, numElems): return builder.StartVector(4, numElems, 4)
-def SignalariumStartStftVector(builder, numElems):
+def EssentiaStartStftVector(builder, numElems):
     """This method is deprecated. Please switch to Start."""
     return StartStftVector(builder, numElems)
 def AddRadixes(builder, radixes): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(radixes), 0)
-def SignalariumAddRadixes(builder, radixes):
+def EssentiaAddRadixes(builder, radixes):
     """This method is deprecated. Please switch to AddRadixes."""
     return AddRadixes(builder, radixes)
 def StartRadixesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
-def SignalariumStartRadixesVector(builder, numElems):
+def EssentiaStartRadixesVector(builder, numElems):
     """This method is deprecated. Please switch to Start."""
     return StartRadixesVector(builder, numElems)
 def End(builder): return builder.EndObject()
-def SignalariumEnd(builder):
+def EssentiaEnd(builder):
     """This method is deprecated. Please switch to End."""
     return End(builder)

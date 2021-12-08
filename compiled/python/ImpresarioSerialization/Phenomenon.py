@@ -25,7 +25,7 @@ class Phenomenon(object):
         self._tab = flatbuffers.table.Table(buf, pos)
 
     # Phenomenon
-    def Name(self):
+    def Identity(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Int32Flags, o + self._tab.Pos)
@@ -42,10 +42,10 @@ def Start(builder): builder.StartObject(2)
 def PhenomenonStart(builder):
     """This method is deprecated. Please switch to Start."""
     return Start(builder)
-def AddName(builder, name): builder.PrependInt32Slot(0, name, 0)
-def PhenomenonAddName(builder, name):
-    """This method is deprecated. Please switch to AddName."""
-    return AddName(builder, name)
+def AddIdentity(builder, identity): builder.PrependInt32Slot(0, identity, 0)
+def PhenomenonAddIdentity(builder, identity):
+    """This method is deprecated. Please switch to AddIdentity."""
+    return AddIdentity(builder, identity)
 def AddQuantity(builder, quantity): builder.PrependFloat32Slot(1, quantity, 0.0)
 def PhenomenonAddQuantity(builder, quantity):
     """This method is deprecated. Please switch to AddQuantity."""

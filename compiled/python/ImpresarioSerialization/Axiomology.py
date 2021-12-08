@@ -32,7 +32,7 @@ class Axiomology(object):
         return 0.0
 
     # Axiomology
-    def Energy(self):
+    def Magnitude(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
@@ -87,10 +87,10 @@ def AddGain(builder, gain): builder.PrependFloat32Slot(0, gain, 0.0)
 def AxiomologyAddGain(builder, gain):
     """This method is deprecated. Please switch to AddGain."""
     return AddGain(builder, gain)
-def AddEnergy(builder, energy): builder.PrependFloat32Slot(1, energy, 0.0)
-def AxiomologyAddEnergy(builder, energy):
-    """This method is deprecated. Please switch to AddEnergy."""
-    return AddEnergy(builder, energy)
+def AddMagnitude(builder, magnitude): builder.PrependFloat32Slot(1, magnitude, 0.0)
+def AxiomologyAddMagnitude(builder, magnitude):
+    """This method is deprecated. Please switch to AddMagnitude."""
+    return AddMagnitude(builder, magnitude)
 def AddHue(builder, hue): builder.PrependFloat32Slot(2, hue, 0.0)
 def AxiomologyAddHue(builder, hue):
     """This method is deprecated. Please switch to AddHue."""

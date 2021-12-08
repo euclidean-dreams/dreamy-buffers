@@ -4,7 +4,7 @@ enum Identifier:byte {
     axiomology,
     phenomenon,
     signalarium,
-    luminary
+    glimpse
 }
 
 table IdentifierWrapper {

@@ -15,9 +15,9 @@ enum class Identifier : int8_t {
   axiomology = 0,
   phenomenon = 1,
   signalarium = 2,
-  luminary = 3,
+  glimpse = 3,
   MIN = axiomology,
-  MAX = luminary
+  MAX = glimpse
 };
 
 inline const Identifier (&EnumValuesIdentifier())[4] {
@@ -25,7 +25,7 @@ inline const Identifier (&EnumValuesIdentifier())[4] {
     Identifier::axiomology,
     Identifier::phenomenon,
     Identifier::signalarium,
-    Identifier::luminary
+    Identifier::glimpse
   };
   return values;
 }
@@ -35,14 +35,14 @@ inline const char * const *EnumNamesIdentifier() {
     "axiomology",
     "phenomenon",
     "signalarium",
-    "luminary",
+    "glimpse",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameIdentifier(Identifier e) {
-  if (flatbuffers::IsOutRange(e, Identifier::axiomology, Identifier::luminary)) return "";
+  if (flatbuffers::IsOutRange(e, Identifier::axiomology, Identifier::glimpse)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesIdentifier()[index];
 }
