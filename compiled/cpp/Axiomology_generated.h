@@ -14,35 +14,15 @@ struct AxiomologyBuilder;
 struct Axiomology FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef AxiomologyBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_GAIN = 4,
-    VT_MAGNITUDE = 6,
-    VT_HUE = 8,
-    VT_BRIGHTNESS = 10,
-    VT_WILDCARDS = 12
+    VT_AXIOMS = 4
   };
-  float gain() const {
-    return GetField<float>(VT_GAIN, 0.0f);
-  }
-  float magnitude() const {
-    return GetField<float>(VT_MAGNITUDE, 0.0f);
-  }
-  float hue() const {
-    return GetField<float>(VT_HUE, 0.0f);
-  }
-  uint8_t brightness() const {
-    return GetField<uint8_t>(VT_BRIGHTNESS, 0);
-  }
-  const flatbuffers::Vector<float> *wildcards() const {
-    return GetPointer<const flatbuffers::Vector<float> *>(VT_WILDCARDS);
+  const flatbuffers::Vector<float> *axioms() const {
+    return GetPointer<const flatbuffers::Vector<float> *>(VT_AXIOMS);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<float>(verifier, VT_GAIN) &&
-           VerifyField<float>(verifier, VT_MAGNITUDE) &&
-           VerifyField<float>(verifier, VT_HUE) &&
-           VerifyField<uint8_t>(verifier, VT_BRIGHTNESS) &&
-           VerifyOffset(verifier, VT_WILDCARDS) &&
-           verifier.VerifyVector(wildcards()) &&
+           VerifyOffset(verifier, VT_AXIOMS) &&
+           verifier.VerifyVector(axioms()) &&
            verifier.EndTable();
   }
 };
@@ -51,20 +31,8 @@ struct AxiomologyBuilder {
   typedef Axiomology Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_gain(float gain) {
-    fbb_.AddElement<float>(Axiomology::VT_GAIN, gain, 0.0f);
-  }
-  void add_magnitude(float magnitude) {
-    fbb_.AddElement<float>(Axiomology::VT_MAGNITUDE, magnitude, 0.0f);
-  }
-  void add_hue(float hue) {
-    fbb_.AddElement<float>(Axiomology::VT_HUE, hue, 0.0f);
-  }
-  void add_brightness(uint8_t brightness) {
-    fbb_.AddElement<uint8_t>(Axiomology::VT_BRIGHTNESS, brightness, 0);
-  }
-  void add_wildcards(flatbuffers::Offset<flatbuffers::Vector<float>> wildcards) {
-    fbb_.AddOffset(Axiomology::VT_WILDCARDS, wildcards);
+  void add_axioms(flatbuffers::Offset<flatbuffers::Vector<float>> axioms) {
+    fbb_.AddOffset(Axiomology::VT_AXIOMS, axioms);
   }
   explicit AxiomologyBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -79,35 +47,19 @@ struct AxiomologyBuilder {
 
 inline flatbuffers::Offset<Axiomology> CreateAxiomology(
     flatbuffers::FlatBufferBuilder &_fbb,
-    float gain = 0.0f,
-    float magnitude = 0.0f,
-    float hue = 0.0f,
-    uint8_t brightness = 0,
-    flatbuffers::Offset<flatbuffers::Vector<float>> wildcards = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<float>> axioms = 0) {
   AxiomologyBuilder builder_(_fbb);
-  builder_.add_wildcards(wildcards);
-  builder_.add_hue(hue);
-  builder_.add_magnitude(magnitude);
-  builder_.add_gain(gain);
-  builder_.add_brightness(brightness);
+  builder_.add_axioms(axioms);
   return builder_.Finish();
 }
 
 inline flatbuffers::Offset<Axiomology> CreateAxiomologyDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    float gain = 0.0f,
-    float magnitude = 0.0f,
-    float hue = 0.0f,
-    uint8_t brightness = 0,
-    const std::vector<float> *wildcards = nullptr) {
-  auto wildcards__ = wildcards ? _fbb.CreateVector<float>(*wildcards) : 0;
+    const std::vector<float> *axioms = nullptr) {
+  auto axioms__ = axioms ? _fbb.CreateVector<float>(*axioms) : 0;
   return ImpresarioSerialization::CreateAxiomology(
       _fbb,
-      gain,
-      magnitude,
-      hue,
-      brightness,
-      wildcards__);
+      axioms__);
 }
 
 inline const ImpresarioSerialization::Axiomology *GetAxiomology(const void *buf) {

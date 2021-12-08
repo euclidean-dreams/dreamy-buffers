@@ -25,88 +25,44 @@ class Axiomology(object):
         self._tab = flatbuffers.table.Table(buf, pos)
 
     # Axiomology
-    def Gain(self):
+    def Axioms(self, j):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
-        return 0.0
-
-    # Axiomology
-    def Magnitude(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
-        return 0.0
-
-    # Axiomology
-    def Hue(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
-        return 0.0
-
-    # Axiomology
-    def Brightness(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
-        return 0
-
-    # Axiomology
-    def Wildcards(self, j):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
         if o != 0:
             a = self._tab.Vector(o)
             return self._tab.Get(flatbuffers.number_types.Float32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
         return 0
 
     # Axiomology
-    def WildcardsAsNumpy(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
+    def AxiomsAsNumpy(self):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Float32Flags, o)
         return 0
 
     # Axiomology
-    def WildcardsLength(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
+    def AxiomsLength(self):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
     # Axiomology
-    def WildcardsIsNone(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
+    def AxiomsIsNone(self):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         return o == 0
 
-def Start(builder): builder.StartObject(5)
+def Start(builder): builder.StartObject(1)
 def AxiomologyStart(builder):
     """This method is deprecated. Please switch to Start."""
     return Start(builder)
-def AddGain(builder, gain): builder.PrependFloat32Slot(0, gain, 0.0)
-def AxiomologyAddGain(builder, gain):
-    """This method is deprecated. Please switch to AddGain."""
-    return AddGain(builder, gain)
-def AddMagnitude(builder, magnitude): builder.PrependFloat32Slot(1, magnitude, 0.0)
-def AxiomologyAddMagnitude(builder, magnitude):
-    """This method is deprecated. Please switch to AddMagnitude."""
-    return AddMagnitude(builder, magnitude)
-def AddHue(builder, hue): builder.PrependFloat32Slot(2, hue, 0.0)
-def AxiomologyAddHue(builder, hue):
-    """This method is deprecated. Please switch to AddHue."""
-    return AddHue(builder, hue)
-def AddBrightness(builder, brightness): builder.PrependUint8Slot(3, brightness, 0)
-def AxiomologyAddBrightness(builder, brightness):
-    """This method is deprecated. Please switch to AddBrightness."""
-    return AddBrightness(builder, brightness)
-def AddWildcards(builder, wildcards): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(wildcards), 0)
-def AxiomologyAddWildcards(builder, wildcards):
-    """This method is deprecated. Please switch to AddWildcards."""
-    return AddWildcards(builder, wildcards)
-def StartWildcardsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
-def AxiomologyStartWildcardsVector(builder, numElems):
+def AddAxioms(builder, axioms): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(axioms), 0)
+def AxiomologyAddAxioms(builder, axioms):
+    """This method is deprecated. Please switch to AddAxioms."""
+    return AddAxioms(builder, axioms)
+def StartAxiomsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
+def AxiomologyStartAxiomsVector(builder, numElems):
     """This method is deprecated. Please switch to Start."""
-    return StartWildcardsVector(builder, numElems)
+    return StartAxiomsVector(builder, numElems)
 def End(builder): return builder.EndObject()
 def AxiomologyEnd(builder):
     """This method is deprecated. Please switch to End."""
