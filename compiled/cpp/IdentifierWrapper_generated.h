@@ -13,19 +13,19 @@ struct IdentifierWrapperBuilder;
 
 enum class Identifier : int8_t {
   axiomology = 0,
-  phenomenon = 1,
-  signalarium = 2,
-  glimpse = 3,
+  essentia = 1,
+  glimpse = 2,
+  phenomenon = 3,
   MIN = axiomology,
-  MAX = glimpse
+  MAX = phenomenon
 };
 
 inline const Identifier (&EnumValuesIdentifier())[4] {
   static const Identifier values[] = {
     Identifier::axiomology,
-    Identifier::phenomenon,
-    Identifier::signalarium,
-    Identifier::glimpse
+    Identifier::essentia,
+    Identifier::glimpse,
+    Identifier::phenomenon
   };
   return values;
 }
@@ -33,16 +33,16 @@ inline const Identifier (&EnumValuesIdentifier())[4] {
 inline const char * const *EnumNamesIdentifier() {
   static const char * const names[5] = {
     "axiomology",
-    "phenomenon",
-    "signalarium",
+    "essentia",
     "glimpse",
+    "phenomenon",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameIdentifier(Identifier e) {
-  if (flatbuffers::IsOutRange(e, Identifier::axiomology, Identifier::glimpse)) return "";
+  if (flatbuffers::IsOutRange(e, Identifier::axiomology, Identifier::phenomenon)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesIdentifier()[index];
 }

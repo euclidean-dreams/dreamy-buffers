@@ -2,9 +2,9 @@ namespace ImpresarioSerialization;
 
 enum Identifier:byte {
     axiomology,
-    phenomenon,
-    signalarium,
-    glimpse
+    essentia,
+    glimpse,
+    phenomenon
 }
 
 table IdentifierWrapper {

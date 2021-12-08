@@ -4,7 +4,7 @@
 
 class Identifier(object):
     axiomology = 0
-    phenomenon = 1
-    signalarium = 2
-    glimpse = 3
+    essentia = 1
+    glimpse = 2
+    phenomenon = 3
 
