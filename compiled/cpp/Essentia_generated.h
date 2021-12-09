@@ -15,7 +15,8 @@ struct Essentia FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef EssentiaBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_MELSIGNAL = 4,
-    VT_RADIXES = 6
+    VT_RADIXES = 6,
+    VT_LAGFLUX = 8
   };
   const flatbuffers::Vector<float> *melSignal() const {
     return GetPointer<const flatbuffers::Vector<float> *>(VT_MELSIGNAL);
@@ -23,12 +24,17 @@ struct Essentia FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::Vector<float> *radixes() const {
     return GetPointer<const flatbuffers::Vector<float> *>(VT_RADIXES);
   }
+  const flatbuffers::Vector<float> *lagflux() const {
+    return GetPointer<const flatbuffers::Vector<float> *>(VT_LAGFLUX);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_MELSIGNAL) &&
            verifier.VerifyVector(melSignal()) &&
            VerifyOffset(verifier, VT_RADIXES) &&
            verifier.VerifyVector(radixes()) &&
+           VerifyOffset(verifier, VT_LAGFLUX) &&
+           verifier.VerifyVector(lagflux()) &&
            verifier.EndTable();
   }
 };
@@ -42,6 +48,9 @@ struct EssentiaBuilder {
   }
   void add_radixes(flatbuffers::Offset<flatbuffers::Vector<float>> radixes) {
     fbb_.AddOffset(Essentia::VT_RADIXES, radixes);
+  }
+  void add_lagflux(flatbuffers::Offset<flatbuffers::Vector<float>> lagflux) {
+    fbb_.AddOffset(Essentia::VT_LAGFLUX, lagflux);
   }
   explicit EssentiaBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -57,8 +66,10 @@ struct EssentiaBuilder {
 inline flatbuffers::Offset<Essentia> CreateEssentia(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::Vector<float>> melSignal = 0,
-    flatbuffers::Offset<flatbuffers::Vector<float>> radixes = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<float>> radixes = 0,
+    flatbuffers::Offset<flatbuffers::Vector<float>> lagflux = 0) {
   EssentiaBuilder builder_(_fbb);
+  builder_.add_lagflux(lagflux);
   builder_.add_radixes(radixes);
   builder_.add_melSignal(melSignal);
   return builder_.Finish();
@@ -67,13 +78,16 @@ inline flatbuffers::Offset<Essentia> CreateEssentia(
 inline flatbuffers::Offset<Essentia> CreateEssentiaDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<float> *melSignal = nullptr,
-    const std::vector<float> *radixes = nullptr) {
+    const std::vector<float> *radixes = nullptr,
+    const std::vector<float> *lagflux = nullptr) {
   auto melSignal__ = melSignal ? _fbb.CreateVector<float>(*melSignal) : 0;
   auto radixes__ = radixes ? _fbb.CreateVector<float>(*radixes) : 0;
+  auto lagflux__ = lagflux ? _fbb.CreateVector<float>(*lagflux) : 0;
   return ImpresarioSerialization::CreateEssentia(
       _fbb,
       melSignal__,
-      radixes__);
+      radixes__,
+      lagflux__);
 }
 
 inline const ImpresarioSerialization::Essentia *GetEssentia(const void *buf) {
