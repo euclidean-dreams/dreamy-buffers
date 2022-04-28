@@ -15,32 +15,20 @@ struct Essentia FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef EssentiaBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_STFT = 4,
-    VT_MELSIGNAL = 6,
-    VT_RADIXES = 8,
-    VT_LAGFLUX = 10
+    VT_EQUALIZED = 6
   };
   const flatbuffers::Vector<float> *stft() const {
     return GetPointer<const flatbuffers::Vector<float> *>(VT_STFT);
   }
-  const flatbuffers::Vector<float> *melSignal() const {
-    return GetPointer<const flatbuffers::Vector<float> *>(VT_MELSIGNAL);
-  }
-  const flatbuffers::Vector<float> *radixes() const {
-    return GetPointer<const flatbuffers::Vector<float> *>(VT_RADIXES);
-  }
-  const flatbuffers::Vector<float> *lagFlux() const {
-    return GetPointer<const flatbuffers::Vector<float> *>(VT_LAGFLUX);
+  const flatbuffers::Vector<float> *equalized() const {
+    return GetPointer<const flatbuffers::Vector<float> *>(VT_EQUALIZED);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_STFT) &&
            verifier.VerifyVector(stft()) &&
-           VerifyOffset(verifier, VT_MELSIGNAL) &&
-           verifier.VerifyVector(melSignal()) &&
-           VerifyOffset(verifier, VT_RADIXES) &&
-           verifier.VerifyVector(radixes()) &&
-           VerifyOffset(verifier, VT_LAGFLUX) &&
-           verifier.VerifyVector(lagFlux()) &&
+           VerifyOffset(verifier, VT_EQUALIZED) &&
+           verifier.VerifyVector(equalized()) &&
            verifier.EndTable();
   }
 };
@@ -52,14 +40,8 @@ struct EssentiaBuilder {
   void add_stft(flatbuffers::Offset<flatbuffers::Vector<float>> stft) {
     fbb_.AddOffset(Essentia::VT_STFT, stft);
   }
-  void add_melSignal(flatbuffers::Offset<flatbuffers::Vector<float>> melSignal) {
-    fbb_.AddOffset(Essentia::VT_MELSIGNAL, melSignal);
-  }
-  void add_radixes(flatbuffers::Offset<flatbuffers::Vector<float>> radixes) {
-    fbb_.AddOffset(Essentia::VT_RADIXES, radixes);
-  }
-  void add_lagFlux(flatbuffers::Offset<flatbuffers::Vector<float>> lagFlux) {
-    fbb_.AddOffset(Essentia::VT_LAGFLUX, lagFlux);
+  void add_equalized(flatbuffers::Offset<flatbuffers::Vector<float>> equalized) {
+    fbb_.AddOffset(Essentia::VT_EQUALIZED, equalized);
   }
   explicit EssentiaBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -75,13 +57,9 @@ struct EssentiaBuilder {
 inline flatbuffers::Offset<Essentia> CreateEssentia(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::Vector<float>> stft = 0,
-    flatbuffers::Offset<flatbuffers::Vector<float>> melSignal = 0,
-    flatbuffers::Offset<flatbuffers::Vector<float>> radixes = 0,
-    flatbuffers::Offset<flatbuffers::Vector<float>> lagFlux = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<float>> equalized = 0) {
   EssentiaBuilder builder_(_fbb);
-  builder_.add_lagFlux(lagFlux);
-  builder_.add_radixes(radixes);
-  builder_.add_melSignal(melSignal);
+  builder_.add_equalized(equalized);
   builder_.add_stft(stft);
   return builder_.Finish();
 }
@@ -89,19 +67,13 @@ inline flatbuffers::Offset<Essentia> CreateEssentia(
 inline flatbuffers::Offset<Essentia> CreateEssentiaDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<float> *stft = nullptr,
-    const std::vector<float> *melSignal = nullptr,
-    const std::vector<float> *radixes = nullptr,
-    const std::vector<float> *lagFlux = nullptr) {
+    const std::vector<float> *equalized = nullptr) {
   auto stft__ = stft ? _fbb.CreateVector<float>(*stft) : 0;
-  auto melSignal__ = melSignal ? _fbb.CreateVector<float>(*melSignal) : 0;
-  auto radixes__ = radixes ? _fbb.CreateVector<float>(*radixes) : 0;
-  auto lagFlux__ = lagFlux ? _fbb.CreateVector<float>(*lagFlux) : 0;
+  auto equalized__ = equalized ? _fbb.CreateVector<float>(*equalized) : 0;
   return ImpresarioSerialization::CreateEssentia(
       _fbb,
       stft__,
-      melSignal__,
-      radixes__,
-      lagFlux__);
+      equalized__);
 }
 
 inline const ImpresarioSerialization::Essentia *GetEssentia(const void *buf) {

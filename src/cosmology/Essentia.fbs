@@ -2,9 +2,7 @@ namespace ImpresarioSerialization;
 
 table Essentia {
     stft:[float32];
-    melSignal:[float32];
-    radixes:[float32];
-    lagFlux:[float32];
+    equalized:[float32];
 }
 
 root_type Essentia;

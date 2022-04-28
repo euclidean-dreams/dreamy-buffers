@@ -52,7 +52,7 @@ class Essentia(object):
         return o == 0
 
     # Essentia
-    def MelSignal(self, j):
+    def Equalized(self, j):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             a = self._tab.Vector(o)
@@ -60,79 +60,25 @@ class Essentia(object):
         return 0
 
     # Essentia
-    def MelSignalAsNumpy(self):
+    def EqualizedAsNumpy(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Float32Flags, o)
         return 0
 
     # Essentia
-    def MelSignalLength(self):
+    def EqualizedLength(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
     # Essentia
-    def MelSignalIsNone(self):
+    def EqualizedIsNone(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         return o == 0
 
-    # Essentia
-    def Radixes(self, j):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
-        if o != 0:
-            a = self._tab.Vector(o)
-            return self._tab.Get(flatbuffers.number_types.Float32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
-        return 0
-
-    # Essentia
-    def RadixesAsNumpy(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
-        if o != 0:
-            return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Float32Flags, o)
-        return 0
-
-    # Essentia
-    def RadixesLength(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
-        if o != 0:
-            return self._tab.VectorLen(o)
-        return 0
-
-    # Essentia
-    def RadixesIsNone(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
-        return o == 0
-
-    # Essentia
-    def LagFlux(self, j):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
-        if o != 0:
-            a = self._tab.Vector(o)
-            return self._tab.Get(flatbuffers.number_types.Float32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
-        return 0
-
-    # Essentia
-    def LagFluxAsNumpy(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
-        if o != 0:
-            return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Float32Flags, o)
-        return 0
-
-    # Essentia
-    def LagFluxLength(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
-        if o != 0:
-            return self._tab.VectorLen(o)
-        return 0
-
-    # Essentia
-    def LagFluxIsNone(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
-        return o == 0
-
-def Start(builder): builder.StartObject(4)
+def Start(builder): builder.StartObject(2)
 def EssentiaStart(builder):
     """This method is deprecated. Please switch to Start."""
     return Start(builder)
@@ -144,30 +90,14 @@ def StartStftVector(builder, numElems): return builder.StartVector(4, numElems, 
 def EssentiaStartStftVector(builder, numElems):
     """This method is deprecated. Please switch to Start."""
     return StartStftVector(builder, numElems)
-def AddMelSignal(builder, melSignal): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(melSignal), 0)
-def EssentiaAddMelSignal(builder, melSignal):
-    """This method is deprecated. Please switch to AddMelSignal."""
-    return AddMelSignal(builder, melSignal)
-def StartMelSignalVector(builder, numElems): return builder.StartVector(4, numElems, 4)
-def EssentiaStartMelSignalVector(builder, numElems):
+def AddEqualized(builder, equalized): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(equalized), 0)
+def EssentiaAddEqualized(builder, equalized):
+    """This method is deprecated. Please switch to AddEqualized."""
+    return AddEqualized(builder, equalized)
+def StartEqualizedVector(builder, numElems): return builder.StartVector(4, numElems, 4)
+def EssentiaStartEqualizedVector(builder, numElems):
     """This method is deprecated. Please switch to Start."""
-    return StartMelSignalVector(builder, numElems)
-def AddRadixes(builder, radixes): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(radixes), 0)
-def EssentiaAddRadixes(builder, radixes):
-    """This method is deprecated. Please switch to AddRadixes."""
-    return AddRadixes(builder, radixes)
-def StartRadixesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
-def EssentiaStartRadixesVector(builder, numElems):
-    """This method is deprecated. Please switch to Start."""
-    return StartRadixesVector(builder, numElems)
-def AddLagFlux(builder, lagFlux): builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(lagFlux), 0)
-def EssentiaAddLagFlux(builder, lagFlux):
-    """This method is deprecated. Please switch to AddLagFlux."""
-    return AddLagFlux(builder, lagFlux)
-def StartLagFluxVector(builder, numElems): return builder.StartVector(4, numElems, 4)
-def EssentiaStartLagFluxVector(builder, numElems):
-    """This method is deprecated. Please switch to Start."""
-    return StartLagFluxVector(builder, numElems)
+    return StartEqualizedVector(builder, numElems)
 def End(builder): return builder.EndObject()
 def EssentiaEnd(builder):
     """This method is deprecated. Please switch to End."""
