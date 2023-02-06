@@ -14,7 +14,7 @@ SET(FLATBUFFERS_INSTALL OFF)
 SET(FLATBUFFERS_INSTALL OFF)
 integrate_cmake_dependency(
         NAME flatbuffers
-        GIT_URL git@github.com:google/flatbuffers.git
+        GIT_URL https://github.com/google/flatbuffers.git
         GIT_TAG 6df40a2471737b27271bdd9b900ab5f3aec746c7
 )
 
